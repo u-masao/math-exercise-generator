@@ -4,7 +4,7 @@ from src.util import QuestionSheet
 
 
 def question_diff(max_number=10):
-    theme = "0から{}のひきざん".format(max_number)
+    theme = "ひきざん（0から{}のかず）".format(max_number)
     questions = []
     while len(questions) < 20:
         a = random.randint(0, max_number)
@@ -27,8 +27,20 @@ def question_ans(max_number=10, width=0):
     return questions, theme
 
 
+def question_add(max_number=10):
+    theme = "たしざん（{}までのかず）".format(max_number)
+    questions = []
+    op = "+"
+    for _ in range(20):
+        a = random.randint(0, max_number)
+        b = random.randint(0, max_number)
+        question = "{}{}{}=".format(a, op, b)
+        questions.append(question)
+    return questions, theme
+
+
 def question_add_a(a=1, max_number=10):
-    theme = "{}たすなにか".format(a)
+    theme = "たしざん（{}たすなにか）".format(a)
     questions = []
     op = "+"
     for _ in range(20):
@@ -47,6 +59,11 @@ def main(output_dir, pages=30):
     for max_number in [5, 10]:
         generators.append(
             {"func": question_diff, "kwargs": dict(max_number=max_number)},
+        )
+
+    for max_number in [5, 10]:
+        generators.append(
+            {"func": question_add, "kwargs": dict(max_number=max_number)},
         )
 
     for a in range(1, 11):
