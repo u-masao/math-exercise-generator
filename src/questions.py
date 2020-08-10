@@ -4,7 +4,6 @@ import random
 
 
 def question_diff(max_number=10):
-    name = "diff_under_10"
     theme = "0から{}のひきざん".format(max_number)
     questions = []
     while len(questions) < 20:
@@ -13,11 +12,10 @@ def question_diff(max_number=10):
         op = "-"
         question = "{}{}{}=".format(a, op, b)
         questions.append(question)
-    return questions, theme, name
+    return questions, theme
 
 
 def question_ans(max_number=10, width=0):
-    name = "ans_{}".format(max_number)
     theme = "だいたい{}になるけいさん".format(max_number)
     questions = []
     while len(questions) < 20:
@@ -26,18 +24,17 @@ def question_ans(max_number=10, width=0):
         a = ans - b
         question = "{}{:+}=".format(a, b)
         questions.append(question)
-    return questions, theme, name
+    return questions, theme
 
 
 def question_add_one():
-    name = "add_1_to_0-9"
     theme = "いちたすなにか"
     questions = []
     op = "+"
     for _ in range(20):
         question = "{}{}{}=".format(1, op, random.randint(0, 9))
         questions.append(question)
-    return questions, theme, name
+    return questions, theme
 
 
 @click.command()
@@ -45,27 +42,33 @@ def question_add_one():
 def main(output_dir):
 
     for count in range(1, 11):
-        questions, theme, name = question_add_one()
+        questions, theme = question_add_one()
         output_pdf(
-            "{}/{}_{:02d}.pdf".format(output_dir, name, count),
+            "{}/{}_{:02d}.pdf".format(output_dir, theme, count),
             questions,
             theme,
         )
 
-    max_number = 10
     for count in range(1, 11):
-        questions, theme, name = question_diff(max_number=max_number)
+        questions, theme = question_diff(max_number=10)
         output_pdf(
-            "{}/{}_{:02d}.pdf".format(output_dir, name, count),
+            "{}/{}_{:02d}.pdf".format(output_dir, theme, count),
             questions,
             theme,
         )
 
-    max_number = 5
     for count in range(1, 11):
-        questions, theme, name = question_ans(max_number=max_number, width=1)
+        questions, theme = question_ans(max_number=5, width=1)
         output_pdf(
-            "{}/{}_{:02d}.pdf".format(output_dir, name, count),
+            "{}/{}_{:02d}.pdf".format(output_dir, theme, count),
+            questions,
+            theme,
+        )
+
+    for count in range(1, 11):
+        questions, theme = question_ans(max_number=10, width=1)
+        output_pdf(
+            "{}/{}_{:02d}.pdf".format(output_dir, theme, count),
             questions,
             theme,
         )

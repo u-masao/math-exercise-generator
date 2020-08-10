@@ -4,8 +4,6 @@ from reportlab.pdfbase.cidfonts import UnicodeCIDFont
 from reportlab.platypus import Table
 from reportlab.lib.units import cm
 
-# https://www.python-izm.com/third_party/pdf/repotlab/
-
 
 def open_pdf(output, author="", title="", subject=""):
     pdf_canvas = canvas.Canvas(output)
