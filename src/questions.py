@@ -32,7 +32,7 @@ def question_add_a(a=1, max_number=10):
     questions = []
     op = "+"
     for _ in range(20):
-        question = "{}{}{}=".format(1, op, random.randint(0, max_number))
+        question = "{}{}{}=".format(a, op, random.randint(0, max_number))
         questions.append(question)
     return questions, theme
 
