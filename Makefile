@@ -1,8 +1,4 @@
-all: example reports
-
-example: reports/example.pdf
-reports/example.pdf: src/example.py lint
-	poetry run python -m src.example reports/example.pdf
+all: reports
 
 reports: lint
 	poetry run python -m src.questions reports
