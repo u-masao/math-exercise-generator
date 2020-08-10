@@ -27,7 +27,7 @@ def question_ans(max_number=10, width=0):
     return questions, theme
 
 
-def question_add_a(a = 1, max_number=10):
+def question_add_a(a=1, max_number=10):
     theme = "{}たすなにか".format(a)
     questions = []
     op = "+"
@@ -42,12 +42,12 @@ def question_add_a(a = 1, max_number=10):
 def main(output_dir):
 
     generators = [
-        {"func": question_add_a, "kwargs": {a=1}},
-        {"func": question_add_a, "kwargs": {a=5}},
-        {"func": question_add_a, "kwargs": {a=3}},
-        {"func": question_diff, "kwargs": {}},
-        {"func": question_ans, "kwargs": {"max_number": 5, "width": 1}},
-        {"func": question_ans, "kwargs": {"max_number": 10, "width": 1}},
+        {"func": question_add_a, "kwargs": dict(a=1)},
+        {"func": question_add_a, "kwargs": dict(a=3)},
+        {"func": question_add_a, "kwargs": dict(a=5)},
+        {"func": question_diff, "kwargs": dict()},
+        {"func": question_ans, "kwargs": dict(max_number=5, width=1)},
+        {"func": question_ans, "kwargs": dict(max_number=10, width=1)},
     ]
 
     for generator in generators:
