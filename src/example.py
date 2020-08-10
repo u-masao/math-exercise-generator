@@ -8,7 +8,7 @@ from reportlab.lib.units import cm
 
 
 @click.command()
-@click.argument("output", type=click.File("wb"), default="reports/output.pdf")
+@click.argument("output", type=click.File("wb"))
 def main(output):
     pdfFile = canvas.Canvas(output)
     pdfFile.saveState()
