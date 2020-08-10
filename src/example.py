@@ -13,9 +13,9 @@ def main(output):
     pdfFile = canvas.Canvas(output)
     pdfFile.saveState()
 
-    pdfFile.setAuthor("トッケイラボ")
-    pdfFile.setTitle("タイトル")
-    pdfFile.setSubject("サンプル")
+    pdfFile.setAuthor("me")
+    pdfFile.setTitle("title")
+    pdfFile.setSubject("subject")
 
     # A4
     pdfFile.setPageSize((21.0 * cm, 29.7 * cm))
