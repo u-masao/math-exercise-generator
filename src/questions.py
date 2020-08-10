@@ -3,7 +3,7 @@ import click
 from src.util import QuestionSheet
 
 
-def question_diff(max_number=10):
+def question_diff(max_number=9):
     theme = "0から{}のひきざん".format(max_number)
     questions = []
     while len(questions) < 20:
@@ -27,8 +27,8 @@ def question_ans(max_number=10, width=0):
     return questions, theme
 
 
-def question_add_one(max_number=10):
-    theme = "いちたすなにか"
+def question_add_a(a = 1, max_number=10):
+    theme = "{}たすなにか".format(a)
     questions = []
     op = "+"
     for _ in range(20):
@@ -42,7 +42,9 @@ def question_add_one(max_number=10):
 def main(output_dir):
 
     generators = [
-        {"func": question_add_one, "kwargs": {}},
+        {"func": question_add_a, "kwargs": {a=1}},
+        {"func": question_add_a, "kwargs": {a=5}},
+        {"func": question_add_a, "kwargs": {a=3}},
         {"func": question_diff, "kwargs": {}},
         {"func": question_ans, "kwargs": {"max_number": 5, "width": 1}},
         {"func": question_ans, "kwargs": {"max_number": 10, "width": 1}},
