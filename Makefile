@@ -1,7 +1,7 @@
 all: reports
 
 reports: lint
-	poetry run python -m src.questions reports
+	poetry run python -m src.questions reports --pages 50
 
 lint:
 	poetry run black src -l 79

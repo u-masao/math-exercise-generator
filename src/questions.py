@@ -3,7 +3,7 @@ import click
 from src.util import QuestionSheet
 
 
-def question_diff(max_number=9):
+def question_diff(max_number=10):
     theme = "0から{}のひきざん".format(max_number)
     questions = []
     while len(questions) < 20:
@@ -16,7 +16,7 @@ def question_diff(max_number=9):
 
 
 def question_ans(max_number=10, width=0):
-    theme = "だいたい{}になるけいさん".format(max_number)
+    theme = "だいたい{}になるけいさん（はば{}）".format(max_number, width)
     questions = []
     while len(questions) < 20:
         ans = random.randint(max_number - width, max_number + width)
@@ -39,20 +39,31 @@ def question_add_a(a=1, max_number=10):
 
 @click.command()
 @click.argument("output_dir", type=click.Path(exists=True), default="reports")
-def main(output_dir):
+@click.option("--pages", default=30, help="PDFのページ数")
+def main(output_dir, pages=30):
 
-    generators = [
-        {"func": question_add_a, "kwargs": dict(a=1)},
-        {"func": question_add_a, "kwargs": dict(a=3)},
-        {"func": question_add_a, "kwargs": dict(a=5)},
-        {"func": question_diff, "kwargs": dict()},
-        {"func": question_ans, "kwargs": dict(max_number=5, width=1)},
-        {"func": question_ans, "kwargs": dict(max_number=10, width=1)},
-    ]
+    generators = []
+
+    for max_number in [5, 10]:
+        generators.append(
+            {"func": question_diff, "kwargs": dict(max_number=max_number)},
+        )
+
+    for a in range(1, 11):
+        generators.append({"func": question_add_a, "kwargs": dict(a=a)},)
+
+    for max_number in [10, 5]:
+        for width in [1, 3]:
+            generators.append(
+                {
+                    "func": question_ans,
+                    "kwargs": dict(max_number=max_number, width=width),
+                },
+            )
 
     for generator in generators:
         sheets = None
-        for _ in range(1, 31):
+        for _ in range(pages):
             questions, theme = generator["func"](**generator["kwargs"])
             if sheets is None:
                 sheets = QuestionSheet("{}/{}.pdf".format(output_dir, theme))
