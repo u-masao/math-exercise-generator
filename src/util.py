@@ -50,9 +50,6 @@ class QuestionSheet:
         self.set_font(font_name, 20)
         self.pdf_canvas.drawString(3 * cm, 25 * cm, "「=」のみぎがわに、ただしいすうじをかいてね")
 
-        self.set_font(font_name, 20)
-        self.pdf_canvas.drawString(5 * cm, 2 * cm, "かかったじかん＿＿＿＿ふん＿＿＿＿びょう")
-
         self.set_font(font_name, 12)
         self.pdf_canvas.drawString(5 * cm, 1 * cm, "テーマ「{}」".format(theme))
 
