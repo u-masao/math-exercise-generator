@@ -3,6 +3,17 @@ import click
 from src.util import QuestionSheet
 
 
+def question_diff_fix_a(a=10):
+    theme = "ひきざん（{}からのひきざん）".format(a)
+    questions = []
+    while len(questions) < 20:
+        b = random.randint(0, a)
+        op = "-"
+        question = "{}{}{}=".format(a, op, b)
+        questions.append(question)
+    return questions, theme
+
+
 def question_diff(max_number=10):
     theme = "ひきざん（0から{}のかず）".format(max_number)
     questions = []
@@ -56,21 +67,29 @@ def main(output_dir, pages=30):
 
     generators = []
 
-    for max_number in [5, 10]:
+    # ひきざん
+    for max_number in range(5, 20):
         generators.append(
-            {"func": question_diff, "kwargs": dict(max_number=max_number)},
+            {"func": question_diff, "kwargs": dict(max_number=max_number)}
         )
 
-    for max_number in [5, 10]:
+    # ひきざん
+    for a in range(5, 21):
+        generators.append({"func": question_diff_fix_a, "kwargs": dict(a=a)})
+
+    # たしざん
+    for max_number in range(5, 21):
         generators.append(
             {"func": question_add, "kwargs": dict(max_number=max_number)},
         )
 
+    # 決まった数を中心にしたたしざん
     for a in range(1, 11):
         generators.append({"func": question_add_a, "kwargs": dict(a=a)},)
 
-    for max_number in [10, 5]:
-        for width in [1, 3]:
+    # 加算減算のミックス：だいたい決まった答えになる計算
+    for max_number in range(5, 21, 5):  # こたえのかず
+        for width in range(1, 6):  # ぶれはば
             generators.append(
                 {
                     "func": question_ans,
@@ -78,6 +97,7 @@ def main(output_dir, pages=30):
                 },
             )
 
+    # PDF 出力
     for generator in generators:
         sheets = None
         for _ in range(pages):
