@@ -21,6 +21,10 @@ makemigrations-polls:
 sqlmigrate-polls-0001:
 	poetry run python manage.py sqlmigrate polls 0001
 
+test: lint test_polls
+test_polls:
+	poetry run python manage.py test polls
+
 add_polls:
 	poetry run python manage.py startapp polls
 
