@@ -21,12 +21,22 @@ makemigrations-polls:
 sqlmigrate-polls-0001:
 	poetry run python manage.py sqlmigrate polls 0001
 
-test: lint test_polls
+test: lint test_polls test_sheets
+
 test_polls:
 	poetry run python manage.py test polls
 
 add_polls:
 	poetry run python manage.py startapp polls
+
+add_sheets:
+	poetry run python manage.py startapp sheets
+
+test_sheets:
+	poetry run python manage.py test sheets
+
+makemigrations-sheets:
+	poetry run python manage.py makemigrations sheets
 
 lint:
 	poetry run black -l 79 .
