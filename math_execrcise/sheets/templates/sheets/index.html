@@ -5,7 +5,7 @@
 {% if question_list %}
     <ul>
     {% for question in question_list %}
-        <li><a href="{% url 'sheets:detail' question.id %}">{{ question.question_text }}</a></li>
+        <li><a href="{% url 'sheets:index' %}">{{ question.theme_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

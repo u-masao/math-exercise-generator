@@ -1,16 +1,23 @@
 import random
 
+from django.utils import timezone
 from django.http import HttpResponse
+from django.views import generic
 
 
 from .models import Question  # noqa: F401
 from .util import QuestionSheet
 
+class IndexView(generic.ListView):
+    model = Question
+    template_name = "sheets/index.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["created"] = timezone.now()
+        return context
 
-def index(request):
-    question_list = Question.objects.all()
-    output = ", ".join([q.theme_text for q in question_list])
-    return HttpResponse(output)
+def detail(request, action, pages):
+    pass
 
 
 def add_specific_ab(request, pages, ab_max, a, b):

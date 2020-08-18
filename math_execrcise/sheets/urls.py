@@ -2,8 +2,9 @@ from django.urls import path
 
 from . import views
 
+app_name = "sheets"
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.IndexView.as_view(), name="index"),
     path(
         "add_specific_ab/<int:pages>/<int:ab_max>/<int:a>/<int:b>/",
         views.add_specific_ab,
