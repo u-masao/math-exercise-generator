@@ -1,14 +1,16 @@
+import random
+
 from django.http import HttpResponse
 
-import random
+
+from .models import Question  # noqa: F401
 from .util import QuestionSheet
 
 
 def index(request):
-    # 一覧表示
-    return generate_sheet(
-        question_add_specific_ab, pages=5, **dict(max_number=20)
-    )
+    question_list = Question.objects.all()
+    output = ", ".join([q.theme_text for q in question_list])
+    return HttpResponse(output)
 
 
 def add_specific_ab(request, pages, ab_max, a, b):

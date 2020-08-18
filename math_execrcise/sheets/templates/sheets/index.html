@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'sheets/style.css' %}">
+
+{% if question_list %}
+    <ul>
+    {% for question in question_list %}
+        <li><a href="{% url 'sheets:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No sheets are available.</p>
+{% endif %}
+
