@@ -5,7 +5,7 @@ from django.http import HttpResponse, Http404
 from django.views import generic
 
 from .models import Question  # noqa: F401
-from .util import QuestionSheet
+from .question_sheet import QuestionSheet
 
 
 class QuestionInterface:
@@ -44,7 +44,7 @@ class IndexView(generic.ListView):
         return context
 
 
-def action(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
+def pdf(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
 
     if action == "addition_specific_ab":
         return generate_sheet(
@@ -59,9 +59,9 @@ def action(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
                 ans_max=ans_max,
             )
         )
-    elif action == "addition_specific_ans":
+    elif action == "specific_ans":
         return generate_sheet(
-            QuestionAdditionSpecificAns,
+            QuestionSpecificAns,
             pages=pages,
             **dict(
                 a=a,
@@ -75,14 +75,12 @@ def action(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
         )
     elif action == "subtraction_specific_ab":
         return generate_sheet(
-        QuestionSubtractionSpecificAb,
-        pages=pages,
-        **dict(a=a, b=b, ab_min=ab_min, ab_max=ab_max)
-    )
+            QuestionSubtractionSpecificAb,
+            pages=pages,
+            **dict(a=a, b=b, ab_min=ab_min, ab_max=ab_max)
+        )
     else:
         raise Http404("No such action")
-
-
 
 
 def generate_sheet(func, pages=10, **kwargs):
@@ -128,7 +126,7 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
         return questions, theme
 
 
-class QuestionAdditionSpecificAns(QuestionInterface):
+class QuestionSpecificAns(QuestionInterface):
     def generate(self):
         # todo: 入力エラー処理
 
