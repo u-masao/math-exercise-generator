@@ -1,7 +1,7 @@
 import random
 
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views import generic
 
 from .models import Question  # noqa: F401
@@ -17,7 +17,7 @@ class QuestionInterface:
         ab_max=10,
         a=None,
         b=None,
-        substruction=False,
+        subtraction=False,
         num_of_questions=20,
     ):
 
@@ -27,7 +27,7 @@ class QuestionInterface:
         self.ab_max = ab_max
         self.a = a
         self.b = b
-        self.substruction = substruction
+        self.subtraction = subtraction
         self.num_of_questions = num_of_questions
 
     def generate(self):
@@ -44,49 +44,45 @@ class IndexView(generic.ListView):
         return context
 
 
-def detail(request, action, pages):
-    pass
+def action(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
 
-
-def addition_specific_ab(
-    request, pages, ab_min, ab_max, ans_min, ans_max, a, b
-):
-    return generate_sheet(
-        QuestionAdditionSpecificAb,
-        pages=pages,
-        **dict(
-            a=a,
-            b=b,
-            ab_min=ab_min,
-            ab_max=ab_max,
-            ans_min=ans_min,
-            ans_max=ans_max,
+    if action == "addition_specific_ab":
+        return generate_sheet(
+            QuestionAdditionSpecificAb,
+            pages=pages,
+            **dict(
+                a=a,
+                b=b,
+                ab_min=ab_min,
+                ab_max=ab_max,
+                ans_min=ans_min,
+                ans_max=ans_max,
+            )
         )
-    )
-
-
-def addition_specific_ans(
-    request, pages, ab_min, ab_max, ans_min, ans_max, subtraction
-):
-    return generate_sheet(
-        QuestionAdditionSpecificAns,
-        pages=pages,
-        **dict(
-            ans_min=ans_min,
-            ans_max=ans_max,
-            ab_min=ab_min,
-            ab_max=ab_max,
-            subtraction=subtraction,
+    elif action == "addition_specific_ans":
+        return generate_sheet(
+            QuestionAdditionSpecificAns,
+            pages=pages,
+            **dict(
+                a=a,
+                b=b,
+                ab_min=ab_min,
+                ab_max=ab_max,
+                ans_min=ans_min,
+                ans_max=ans_max,
+                subtraction=False,
+            )
         )
-    )
-
-
-def substraction_specific_ab(request, pages, ab_min, ab_max, a, b):
-    return generate_sheet(
-        QuestionSubstractionSpecificAb,
+    elif action == "subtraction_specific_ab":
+        return generate_sheet(
+        QuestionSubtractionSpecificAb,
         pages=pages,
         **dict(a=a, b=b, ab_min=ab_min, ab_max=ab_max)
     )
+    else:
+        raise Http404("No such action")
+
+
 
 
 def generate_sheet(func, pages=10, **kwargs):
@@ -104,7 +100,7 @@ def generate_sheet(func, pages=10, **kwargs):
     return response
 
 
-class QuestionSubstractionSpecificAb(QuestionInterface):
+class QuestionSubtractionSpecificAb(QuestionInterface):
     def generate(self):
         if not self.a and not self.b:
             theme = "ひきざん（{}までのかず）".format(self.ab_max)

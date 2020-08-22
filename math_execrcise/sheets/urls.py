@@ -9,19 +9,5 @@ _url_params = (
 )
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
-    path(
-        "addition_specific_ab" + _url_params,
-        views.addition_specific_ab,
-        name="addition_specific_ab",
-    ),
-    path(
-        "addition_specific_ans" + _url_params,
-        views.addition_specific_ans,
-        name="addition_specific_ans",
-    ),
-    path(
-        "addition_specific_ans" + _url_params,
-        views.substraction_specific_ab,
-        name="substraction_specific_ab",
-    ),
+    path("action/<str:action>" + _url_params, views.action, name="action",),
 ]
