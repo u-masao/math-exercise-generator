@@ -46,8 +46,9 @@ lint:
 sql:
 	sqlite3 db.sqlite3
 
-dumpdata-sheets-questions:
-	@poetry run python manage.py dumpdata | jq 'map(select(.["model"] == "sheets.question"))'
+dumpdata-to-fixture-sheets:
+	poetry run python manage.py dumpdata | jq 'map(select(.["model"] == "sheets.question"))' > sheets/fixture/questions.json
+	poetry run python manage.py dumpdata | jq 'map(select(.["model"] == "sheets.algorythm"))' > sheets/fixture/algorythms.json
 
 makemigrations-sheets-empty:
 	poetry run python manage.py makemigrations sheets --empty

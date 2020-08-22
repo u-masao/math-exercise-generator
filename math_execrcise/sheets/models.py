@@ -1,14 +1,25 @@
 from django.db import models
 
 
+class Algorythm(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    usage = models.CharField(max_length=300)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Question(models.Model):
-    created = models.DateTimeField("date created")
-    modified = models.DateTimeField("date modified")
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     theme_text = models.CharField(max_length=200)
     level_text = models.CharField(max_length=20)
     level_number = models.IntegerField(default=0)
-    action = models.CharField(max_length=100)
     params_text = models.CharField(max_length=100)
+    algorythm = models.ForeignKey(Algorythm, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} {}-{:03d}".format(
