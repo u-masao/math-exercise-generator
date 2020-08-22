@@ -5,7 +5,7 @@
 {% if question_list %}
     <ul>
     {% for question in question_list %}
-        <li><a href="{% url 'sheets:index' %}{{question.action}}/{{question.params_text}}/">
+        <li><a href="{% url 'sheets:index' %}pdf/{{question.action}}/{{question.params_text}}/">
             {{ question.theme_text }}
         </a></li>
     {% endfor %}
