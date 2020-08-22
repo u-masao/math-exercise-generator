@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.views import generic
 
-
 from .models import Question  # noqa: F401
 from .util import QuestionSheet
 
@@ -49,11 +48,20 @@ def detail(request, action, pages):
     pass
 
 
-def addition_specific_ab(request, pages, ab_min, ab_max, a, b):
+def addition_specific_ab(
+    request, pages, ab_min, ab_max, ans_min, ans_max, a, b
+):
     return generate_sheet(
         QuestionAdditionSpecificAb,
         pages=pages,
-        **dict(a=a, b=b, ab_min=ab_min, ab_max=ab_max)
+        **dict(
+            a=a,
+            b=b,
+            ab_min=ab_min,
+            ab_max=ab_max,
+            ans_min=ans_min,
+            ans_max=ans_max,
+        )
     )
 
 
@@ -155,26 +163,30 @@ class QuestionAdditionSpecificAns(QuestionInterface):
 class QuestionAdditionSpecificAb(QuestionInterface):
     def generate(self):
         if not self.a and not self.b:
-            theme = "たしざん（{}までのかず）".format(self.ab_max)
+            theme = "たしざん（{}から{}までのかず）".format(self.ab_min, self.ab_max)
         elif self.a and self.b:
             theme = "たしざん（{}たす{}）".format(self.a, self.b)
         else:
             if self.a:
-                theme = "たしざん（{}たす{}までのかず）".format(self.a, self.ab_max)
+                theme = "たしざん（{}たす{}から{}までのかず）".format(
+                    self.a, self.ab_min, self.ab_max
+                )
             else:
-                theme = "たしざん（{}までのかずたす{}）".format(self.ab_max, self.b)
+                theme = "たしざん（{}から{}までのかずたす{}）".format(
+                    self.ab_min, self.ab_max, self.b
+                )
 
         questions = []
         for _ in range(self.num_of_questions):
             if self.a:
                 question_a = self.a
             else:
-                question_a = random.randint(0, self.ab_max)
+                question_a = random.randint(self.ab_min, self.ab_max)
 
             if self.b:
                 question_b = self.b
             else:
-                question_b = random.randint(0, self.ab_max)
+                question_b = random.randint(self.ab_min, self.ab_max)
 
             question = "{}+{}=".format(question_a, question_b)
             questions.append(question)
