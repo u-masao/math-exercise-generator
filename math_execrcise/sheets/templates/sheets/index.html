@@ -6,8 +6,8 @@
     <ul>
     {% for question in question_list %}
     <li><a href="{% url 'sheets:index' %}pdf/{{question.algorythm}}/{{question.pages}}/{{question.ab_min}}/{{question.ab_max}}/{{question.ans_min}}/{{question.ans_max}}/{{question.a}}/{{question.b}}/" target="_blank">
-            {{ question.theme_text }}
-        </a></li>
+    {{ question.theme_text }} {{question.level_text}} {{question.level_number}} 
+    </a></li>
     {% endfor %}
     </ul>
 {% else %}
