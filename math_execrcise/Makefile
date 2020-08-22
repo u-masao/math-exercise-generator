@@ -45,3 +45,9 @@ lint:
 
 sql:
 	sqlite3 db.sqlite3
+
+dumpdata-sheets-questions:
+	@poetry run python manage.py dumpdata | jq 'map(select(.["model"] == "sheets.question"))'
+
+makemigrations-sheets-empty:
+	poetry run python manage.py makemigrations sheets --empty
