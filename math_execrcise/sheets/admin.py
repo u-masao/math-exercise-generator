@@ -12,7 +12,13 @@ class AlgorythmAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     search_fields = ["theme_text"]
     list_filter = ["modified", "created"]
-    list_display = ("theme_text", "modified", "algorythm")
+    list_display = (
+        "theme_text",
+        "algorythm",
+        "level_text",
+        "level_number",
+        "modified",
+    )
 
 
 admin.site.register(Question, QuestionAdmin)

@@ -8,8 +8,14 @@
       "theme_text": "たしざん（5から9のたしざん）",
       "level_text": "A",
       "level_number": 1,
-      "params_text": "5/5/9/0/0/0/0",
-      "algorythm": 1
+      "algorythm": 1,
+      "pages": 5,
+      "ans_min": 0,
+      "ans_max": 10,
+      "ab_min": 0,
+      "ab_max": 10,
+      "a": 0,
+      "b": 0
     }
   },
   {
@@ -17,12 +23,18 @@
     "pk": 2,
     "fields": {
       "created": "2020-08-22T15:04:09.788Z",
-      "modified": "2020-08-22T15:04:09.788Z",
+      "modified": "2020-08-22T15:10:57.636Z",
       "theme_text": "たしざん（0から10まで）",
       "level_text": "A",
       "level_number": 1,
-      "params_text": "5/0/10/0/0/0/0",
-      "algorythm": 1
+      "algorythm": 1,
+      "pages": 5,
+      "ans_min": 0,
+      "ans_max": 10,
+      "ab_min": 0,
+      "ab_max": 10,
+      "a": 0,
+      "b": 0
     }
   }
 ]

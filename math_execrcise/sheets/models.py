@@ -18,8 +18,14 @@ class Question(models.Model):
     theme_text = models.CharField(max_length=200)
     level_text = models.CharField(max_length=20)
     level_number = models.IntegerField(default=0)
-    params_text = models.CharField(max_length=100)
     algorythm = models.ForeignKey(Algorythm, on_delete=models.CASCADE)
+    pages = models.IntegerField(default=5)
+    ans_min = models.IntegerField(default=0)
+    ans_max = models.IntegerField(default=10)
+    ab_min = models.IntegerField(default=0)
+    ab_max = models.IntegerField(default=10)
+    a = models.IntegerField(default=0)
+    b = models.IntegerField(default=0)
 
     def __str__(self):
         return "{} {}-{:03d}".format(
