@@ -53,7 +53,7 @@ class QuestionSheet:
         self.set_font(font_name, 12)
         self.pdf_canvas.drawString(5 * cm, 1 * cm, "テーマ「{}」".format(theme))
 
-        table = Table(cells, colWidths=7 * cm, rowHeights=2 * cm)
+        table = Table(cells, colWidths=8 * cm, rowHeights=2 * cm)
         table.setStyle([("FONT", (0, 0), (-1, -1), font_name, 28)])
         w, h = table.wrapOn(self.pdf_canvas, 0, 0)
         table.drawOn(self.pdf_canvas, 3 * cm, 24 * cm - h)
