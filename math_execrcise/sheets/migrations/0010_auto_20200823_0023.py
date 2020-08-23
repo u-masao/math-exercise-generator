@@ -3,6 +3,7 @@
 from django.core.management import call_command
 from django.db import migrations
 
+
 def load_fixture(apps, schema_editor):
     call_command(
         "loaddata", "sheets/fixture/0010/questions.json", app_label="sheets"
@@ -12,7 +13,7 @@ def load_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sheets', '0009_auto_20200823_0017'),
+        ("sheets", "0009_auto_20200823_0017"),
     ]
 
     operations = [
