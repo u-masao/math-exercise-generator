@@ -42,6 +42,8 @@ class QuestionSheet:
         font_name="HeiseiKakuGo-W5",
     ):
 
+        self.pdf_canvas.setTitle(page_title)
+
         cells = self.build_cells(questions)
 
         self.set_font(font_name, 30)
