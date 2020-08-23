@@ -38,6 +38,9 @@ class IndexView(generic.ListView):
     model = Question
     template_name = "sheets/index.html"
 
+    def get_queryset(self):
+        return Question.objects.order_by(*["level_text", "level_number"])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["created"] = timezone.now()
