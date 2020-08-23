@@ -3,6 +3,7 @@
 from django.core.management import call_command
 from django.db import migrations
 
+
 def load_fixture(apps, schema_editor):
     call_command(
         "loaddata", "sheets/fixture/0009/algorythms.json", app_label="sheets"
@@ -12,7 +13,7 @@ def load_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sheets', '0008_remove_question_params_text'),
+        ("sheets", "0008_remove_question_params_text"),
     ]
 
     operations = [
