@@ -10,7 +10,7 @@ def load_fixture(apps, schema_editor):
     )
 
     call_command(
-        "loaddata", "sheets/fixture/0010/questions.json", app_label="sheets"
+        "loaddata", "sheets/fixture/0011/questions.json", app_label="sheets"
     )
 
 class Migration(migrations.Migration):
