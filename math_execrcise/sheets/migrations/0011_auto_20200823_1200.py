@@ -13,13 +13,13 @@ def load_fixture(apps, schema_editor):
         "loaddata", "sheets/fixture/0011/questions.json", app_label="sheets"
     )
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sheets', '0010_auto_20200823_0023'),
+        ("sheets", "0010_auto_20200823_0023"),
     ]
 
     operations = [
         migrations.RunPython(load_fixture),
     ]
-
