@@ -3,7 +3,9 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.cidfonts import UnicodeCIDFont
 from reportlab.platypus import Table
 from reportlab.lib.units import cm
+from reportlab.pdfbase.ttfonts import TTFont
 
+GEN_SHIN_GOTHIC_MEDIUM_TTF="./sheets/fonts/GenShinGothic-P-Medium.ttf"
 
 class QuestionSheet:
     def __init__(
@@ -16,7 +18,7 @@ class QuestionSheet:
         self.pdf_canvas.setPageSize((21.0 * cm, 29.7 * cm))
 
     def set_font(self, font_name, font_size):
-        pdfmetrics.registerFont(UnicodeCIDFont(font_name))
+        pdfmetrics.registerFont(TTFont(font_name, GEN_SHIN_GOTHIC_MEDIUM_TTF))
         self.pdf_canvas.setFont(font_name, font_size)
 
     def close(self):
@@ -39,7 +41,7 @@ class QuestionSheet:
         questions=["0+0="],
         theme="なし",
         page_title="ぱぱのさんすうもんだい",
-        font_name="HeiseiKakuGo-W5",
+        font_name="GenShinGothic",
     ):
 
         self.pdf_canvas.setTitle(page_title)
