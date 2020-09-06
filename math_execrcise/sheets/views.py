@@ -118,12 +118,12 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
             if self.a:
                 question_a = self.a
             else:
-                question_a = random.randint(0, self.ab_max)
+                question_a = random.randint(self.ab_min, self.ab_max)
 
             if self.b:
                 question_b = -self.b
             else:
-                question_b = -random.randint(0, question_a)
+                question_b = -random.randint(1, question_a)
             question = "{}{:+}=".format(question_a, question_b)
             questions.append(question)
         return questions, theme
