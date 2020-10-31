@@ -6,11 +6,11 @@ from django.db import migrations
 
 def load_fixture(apps, schema_editor):
     call_command(
-        "loaddata", "sheets/fixture/0015/algorythms.json", app_label="sheets"
+        "loaddata", "sheets/fixture/algorythms.json", app_label="sheets"
     )
 
     call_command(
-        "loaddata", "sheets/fixture/0015/questions.json", app_label="sheets"
+        "loaddata", "sheets/fixture/questions.json", app_label="sheets"
     )
 
 
