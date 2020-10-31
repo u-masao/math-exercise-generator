@@ -1,11 +1,12 @@
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.cidfonts import UnicodeCIDFont
+from reportlab.pdfbase.cidfonts import UnicodeCIDFont  # noqa: F401
 from reportlab.platypus import Table
 from reportlab.lib.units import cm
 from reportlab.pdfbase.ttfonts import TTFont
 
-GEN_SHIN_GOTHIC_MEDIUM_TTF="./sheets/fonts/GenShinGothic-P-Medium.ttf"
+GEN_SHIN_GOTHIC_MEDIUM_TTF = "./sheets/fonts/GenShinGothic-P-Medium.ttf"
+
 
 class QuestionSheet:
     def __init__(

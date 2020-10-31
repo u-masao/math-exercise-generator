@@ -26,6 +26,10 @@ class Question(models.Model):
     ab_max = models.IntegerField(default=10)
     a = models.IntegerField(default=0)
     b = models.IntegerField(default=0)
+    a_min = models.IntegerField(default=0)
+    a_max = models.IntegerField(default=10)
+    b_min = models.IntegerField(default=0)
+    b_max = models.IntegerField(default=10)
 
     def __str__(self):
         return "{} {}-{:03d}".format(

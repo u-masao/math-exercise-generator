@@ -19,6 +19,10 @@ class QuestionInterface:
         b=None,
         subtraction=False,
         num_of_questions=20,
+        a_min=None,
+        a_max=None,
+        b_min=None,
+        b_max=None,
     ):
 
         self.ans_min = ans_min
@@ -29,6 +33,10 @@ class QuestionInterface:
         self.b = b
         self.subtraction = subtraction
         self.num_of_questions = num_of_questions
+        self.a_min = a_min
+        self.a_max = a_max
+        self.b_min = b_min
+        self.b_max = b_max
 
     def generate(self):
         pass
@@ -47,7 +55,21 @@ class IndexView(generic.ListView):
         return context
 
 
-def pdf(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
+def pdf(
+    request,
+    action,
+    pages,
+    ab_min,
+    ab_max,
+    ans_min,
+    ans_max,
+    a,
+    b,
+    a_min,
+    a_max,
+    b_min,
+    b_max,
+):
 
     if action == "addition_specific_ab":
         return generate_sheet(
@@ -60,7 +82,11 @@ def pdf(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
                 ab_max=ab_max,
                 ans_min=ans_min,
                 ans_max=ans_max,
-            )
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
         )
     elif action == "specific_ans":
         return generate_sheet(
@@ -74,13 +100,19 @@ def pdf(request, action, pages, ab_min, ab_max, ans_min, ans_max, a, b):
                 ans_min=ans_min,
                 ans_max=ans_max,
                 subtraction=False,
-            )
+            ),
         )
     elif action == "subtraction_specific_ab":
         return generate_sheet(
             QuestionSubtractionSpecificAb,
             pages=pages,
-            **dict(a=a, b=b, ab_min=ab_min, ab_max=ab_max)
+            **dict(a=a, b=b, ab_min=ab_min, ab_max=ab_max),
+        )
+    elif action == "subtraction_specific_ab_range":
+        return generate_sheet(
+            QuestionSubtractionSpecificAbRange,
+            pages=pages,
+            **dict(a_min=a_min, a_max=a_max, b_min=b_min, b_max=b_max),
         )
     else:
         raise Http404("No such action")
@@ -101,6 +133,22 @@ def generate_sheet(func, pages=10, **kwargs):
     return response
 
 
+class QuestionSubtractionSpecificAbRange(QuestionInterface):
+    def generate(self):
+        theme = f"ひきざん（くりさがりなし {self.a_max} までのかず ）"
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+            if self.a_min and self.a_max:
+                question_a = random.randint(self.a_min, self.a_max)
+            if question_a % 10 < 3:
+                continue
+            question_b = -random.randint(1, question_a % 10)
+            question = "{}{:+}=".format(question_a, question_b)
+            questions.append(question)
+        return questions, theme
+
+
 class QuestionSubtractionSpecificAb(QuestionInterface):
     def generate(self):
         if not self.a and not self.b:
@@ -115,6 +163,11 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
 
         questions = []
         while len(questions) < self.num_of_questions:
+            if self.a_min and self.a_max:
+                question_a = random.randint(self.a_min, self.a_max)
+            if self.b_min and self.b_max:
+                question_b = random.randint(self.a_min, self.a_max)
+
             if self.a:
                 question_a = self.a
             else:
