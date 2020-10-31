@@ -16,7 +16,7 @@ def load_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sheets', '0012_auto_20200824_2103'),
+        ("sheets", "0012_auto_20200824_2103"),
     ]
 
     operations = [
