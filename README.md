@@ -41,5 +41,5 @@ make runserver
 
 ブラウザで、以下の URL に接続
 
-http://127.0.0.1:8000/sheets/
+http://127.0.0.1:8000/
 
