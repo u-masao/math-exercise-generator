@@ -1,0 +1,20 @@
+{% extends "sheets/base.html" %}
+
+{% block title %}さんすうもんだい{% endblock %}
+
+{% block content %}
+
+<h1>さんすうもんだい</h1>
+{% if question_list %}
+    <ul>
+    {% for question in question_list %}
+    <li><a href="{% url 'sheets:index' %}pdf/{{question.algorythm}}/{{question.pages}}/{{question.ab_min}}/{{question.ab_max}}/{{question.ans_min}}/{{question.ans_max}}/{{question.a}}/{{question.b}}/{{question.a_min}}/{{question.a_max}}/{{question.b_min}}/{{question.b_max}}/" target="_blank">
+     {{question.level_text}}-{{question.level_number}}: {{ question.theme_text }}
+    </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No sheets are available.</p>
+{% endif %}
+
+{% endblock %}
