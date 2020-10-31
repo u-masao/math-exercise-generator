@@ -114,6 +114,12 @@ def pdf(
             pages=pages,
             **dict(a_min=a_min, a_max=a_max, b_min=b_min, b_max=b_max),
         )
+    elif action == "subtraction_borrow":
+        return generate_sheet(
+            QuestionSubtractionBorrow,
+            pages=pages,
+            **dict(a_min=a_min, a_max=a_max),
+        )
     else:
         raise Http404("No such action")
 
@@ -133,6 +139,27 @@ def generate_sheet(func, pages=10, **kwargs):
     return response
 
 
+class QuestionSubtractionBorrow(QuestionInterface):
+    def generate(self):
+        theme = f"ひきざん（くりさがりあり {self.a_max} までのかず ）"
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+            if self.a_min and self.a_max:
+                question_a = random.randint(self.a_min, self.a_max)
+            if question_a % 10 > 8:
+                continue
+            question_b = -random.randint(question_a % 10+1, 9)
+            question = "{}{:+}=".format(question_a, question_b)
+
+            if not questions:
+                questions.append(question)
+            elif questions[-1] != question:
+                questions.append(question)
+
+        return questions, theme
+
+
 class QuestionSubtractionSpecificAbRange(QuestionInterface):
     def generate(self):
         theme = f"ひきざん（くりさがりなし {self.a_max} までのかず ）"
@@ -145,7 +172,10 @@ class QuestionSubtractionSpecificAbRange(QuestionInterface):
                 continue
             question_b = -random.randint(1, question_a % 10)
             question = "{}{:+}=".format(question_a, question_b)
-            questions.append(question)
+            if not questions:
+                questions.append(question)
+            elif questions[-1] != question:
+                questions.append(question)
         return questions, theme
 
 
@@ -178,7 +208,10 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
             else:
                 question_b = -random.randint(1, question_a)
             question = "{}{:+}=".format(question_a, question_b)
-            questions.append(question)
+            if not questions:
+                questions.append(question)
+            elif questions[-1] != question:
+                questions.append(question)
         return questions, theme
 
 
@@ -206,7 +239,10 @@ class QuestionSpecificAns(QuestionInterface):
                 question_b = question_ans - question_a
 
             question = "{}{:+}=".format(question_a, question_b)
-            questions.append(question)
+            if not questions:
+                questions.append(question)
+            elif questions[-1] != question:
+                questions.append(question)
         return questions, theme
 
 
@@ -239,5 +275,8 @@ class QuestionAdditionSpecificAb(QuestionInterface):
                 question_b = random.randint(self.ab_min, self.ab_max)
 
             question = "{}+{}=".format(question_a, question_b)
-            questions.append(question)
+            if not questions:
+                questions.append(question)
+            elif questions[-1] != question:
+                questions.append(question)
         return questions, theme
