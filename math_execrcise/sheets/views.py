@@ -7,6 +7,8 @@ from django.views import generic
 from .models import Question  # noqa: F401
 from .question_sheet import QuestionSheet
 
+import logging
+
 
 class QuestionInterface:
     def __init__(
@@ -125,6 +127,7 @@ def pdf(
 
 
 def generate_sheet(func, pages=10, **kwargs):
+    logger = logging.getLogger(__name__)
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "inline; filename=sheet.pdf"
 
@@ -134,6 +137,7 @@ def generate_sheet(func, pages=10, **kwargs):
         sheets.draw(
             questions=questions, theme=theme,
         )
+        logger.debug(f"draw sheet: {questions} {theme}")
     sheets.close()
 
     return response
@@ -141,6 +145,7 @@ def generate_sheet(func, pages=10, **kwargs):
 
 class QuestionSubtractionBorrow(QuestionInterface):
     def generate(self):
+        logger = logging.getLogger(__name__)
         theme = f"ひきざん（くりさがりあり {self.a_max} までのかず ）"
 
         questions = []
@@ -149,14 +154,14 @@ class QuestionSubtractionBorrow(QuestionInterface):
                 question_a = random.randint(self.a_min, self.a_max)
             if question_a % 10 > 8:
                 continue
-            question_b = -random.randint(question_a % 10+1, 9)
+            question_b = -random.randint(question_a % 10 + 1, 9)
             question = "{}{:+}=".format(question_a, question_b)
 
-            if not questions:
+            if len(questions)<2:
                 questions.append(question)
-            elif questions[-1] != question:
+            elif questions[-1] != question and questions[-2] != question:
                 questions.append(question)
-
+        logger.debug(f"questions: {questions}")
         return questions, theme
 
 
