@@ -25,6 +25,10 @@ class QuestionInterface:
         a_max=None,
         b_min=None,
         b_max=None,
+        style="formula",  # formura or sentence
+        rows=10,
+        cols=2,
+        fontsize_question=28,
     ):
 
         self.ans_min = ans_min
@@ -39,9 +43,39 @@ class QuestionInterface:
         self.a_max = a_max
         self.b_min = b_min
         self.b_max = b_max
+        self.style = style
+        self.rows = rows
+        self.cols = cols
+        self.fontsize_question = fontsize_question
+        if self.style == "sentence":
+            self.num_of_questions = 10
+            self.rows = 10
+            self.cols = 1
+            self.fontsize_question = 18
 
     def generate(self):
         pass
+
+    def _format_question(self, a, b):
+        question_string = "{}{:+}=".format(a, b)
+
+        if self.style == "sentence":
+            question_string = "つみきが "
+            if b >= 0:
+                question_string += f"{a} こ あります。{b} こ もらいました。"
+            else:
+                question_string += f"{a} こ あります。{abs(b)} こ あげました。"
+
+            question_string += "いま なんこですか。"
+
+        return question_string
+
+    def _append_question(self, questions, question):
+        if len(questions) < 2:
+            questions.append(question)
+        elif questions[-1] != question and questions[-2] != question:
+            questions.append(question)
+        return questions
 
 
 class IndexView(generic.ListView):
@@ -71,6 +105,7 @@ def pdf(
     a_max,
     b_min,
     b_max,
+    style,
 ):
 
     if action == "addition_specific_ab":
@@ -120,7 +155,7 @@ def pdf(
         return generate_sheet(
             QuestionSubtractionBorrow,
             pages=pages,
-            **dict(a_min=a_min, a_max=a_max),
+            **dict(a_min=a_min, a_max=a_max, style=style),
         )
     else:
         raise Http404("No such action")
@@ -133,9 +168,14 @@ def generate_sheet(func, pages=10, **kwargs):
 
     sheets = QuestionSheet(response)
     for _ in range(pages):
-        questions, theme = func(**kwargs).generate()
+        generator = func(**kwargs)
+        questions, theme = generator.generate()
         sheets.draw(
-            questions=questions, theme=theme,
+            questions=questions,
+            theme=theme,
+            rows=generator.rows,
+            cols=generator.cols,
+            fontsize_question=generator.fontsize_question,
         )
         logger.debug(f"draw sheet: {questions} {theme}")
     sheets.close()
@@ -155,12 +195,9 @@ class QuestionSubtractionBorrow(QuestionInterface):
             if question_a % 10 > 8:
                 continue
             question_b = -random.randint(question_a % 10 + 1, 9)
-            question = "{}{:+}=".format(question_a, question_b)
+            question = self._format_question(question_a, question_b)
 
-            if len(questions) < 2:
-                questions.append(question)
-            elif questions[-1] != question and questions[-2] != question:
-                questions.append(question)
+            questions = self._append_question(questions, question)
         logger.debug(f"questions: {questions}")
         return questions, theme
 
@@ -176,11 +213,8 @@ class QuestionSubtractionSpecificAbRange(QuestionInterface):
             if question_a % 10 < 3:
                 continue
             question_b = -random.randint(1, question_a % 10)
-            question = "{}{:+}=".format(question_a, question_b)
-            if not questions:
-                questions.append(question)
-            elif questions[-1] != question:
-                questions.append(question)
+            question = self._format_question(question_a, question_b)
+            questions = self._append_question(questions, question)
         return questions, theme
 
 
@@ -212,11 +246,8 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
                 question_b = -self.b
             else:
                 question_b = -random.randint(1, question_a)
-            question = "{}{:+}=".format(question_a, question_b)
-            if not questions:
-                questions.append(question)
-            elif questions[-1] != question:
-                questions.append(question)
+            question = self._format_question(question_a, question_b)
+            questions = self._append_question(questions, question)
         return questions, theme
 
 
@@ -243,11 +274,8 @@ class QuestionSpecificAns(QuestionInterface):
                 question_a = random.randint(question_ans, self.ab_max)
                 question_b = question_ans - question_a
 
-            question = "{}{:+}=".format(question_a, question_b)
-            if not questions:
-                questions.append(question)
-            elif questions[-1] != question:
-                questions.append(question)
+            question = self._format_question(question_a, question_b)
+            questions = self._append_question(questions, question)
         return questions, theme
 
 
@@ -279,9 +307,6 @@ class QuestionAdditionSpecificAb(QuestionInterface):
             else:
                 question_b = random.randint(self.ab_min, self.ab_max)
 
-            question = "{}+{}=".format(question_a, question_b)
-            if not questions:
-                questions.append(question)
-            elif questions[-1] != question:
-                questions.append(question)
+            question = self._format_question(question_a, question_b)
+            questions = self._append_question(questions, question)
         return questions, theme
