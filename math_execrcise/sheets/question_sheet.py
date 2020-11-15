@@ -60,6 +60,7 @@ class QuestionSheet:
         theme="なし",
         page_title="さんすうもんだいをやろう！",
         page_subtitle="「=」のみぎがわに、ただしいすうじをかいてね",
+        fontsize_question=28,
     ):
 
         cells = self._build_cells(questions, rows=rows, cols=cols)
@@ -71,9 +72,17 @@ class QuestionSheet:
 
         table = Table(cells, colWidths=8 * cm, rowHeights=2 * cm)
         table.setStyle(
-            [("FONT", (0, 0), (-1, -1), GEN_SHIN_GOTHIC_FONT_NAME, 28)]
+            [
+                (
+                    "FONT",
+                    (0, 0),
+                    (-1, -1),
+                    GEN_SHIN_GOTHIC_FONT_NAME,
+                    fontsize_question,
+                )
+            ]
         )
         w, h = table.wrapOn(self.pdf_canvas, 0, 0)
-        table.drawOn(self.pdf_canvas, 3 * cm, 24 * cm - h)
+        table.drawOn(self.pdf_canvas, 2 * cm, 24 * cm - h)
 
         self.pdf_canvas.showPage()
