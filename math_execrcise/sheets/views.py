@@ -310,3 +310,4 @@ class QuestionAdditionSpecificAb(QuestionInterface):
             question = self._format_question(question_a, question_b)
             questions = self._append_question(questions, question)
         return questions, theme
+
