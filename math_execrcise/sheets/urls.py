@@ -11,7 +11,7 @@ urlpatterns = [
             "pdf/<str:action>/"
             "<int:pages>/<int:ab_min>/<int:ab_max>/"
             "<int:ans_min>/<int:ans_max>/<int:a>/<int:b>/"
-            "<int:a_min>/<int:a_max>/<int:b_min>/<int:b_max>/"
+            "<int:a_min>/<int:a_max>/<int:b_min>/<int:b_max>/<str:style>/"
         ),
         views.pdf,
         name="pdf",
