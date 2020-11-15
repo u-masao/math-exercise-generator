@@ -30,6 +30,16 @@ class Question(models.Model):
     a_max = models.IntegerField(default=10)
     b_min = models.IntegerField(default=0)
     b_max = models.IntegerField(default=10)
+    style_choices = (
+        ("formura", "式"),
+        ("sentence", "文章問題"),
+    )
+    style = models.CharField(
+        verbose_name="問題の形式",
+        max_length=10,
+        choices=style_choices,
+        default="formura",
+    )
 
     def __str__(self):
         return "{} {}-{:03d}".format(
