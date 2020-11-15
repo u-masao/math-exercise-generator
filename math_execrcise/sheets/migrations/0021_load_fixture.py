@@ -17,7 +17,7 @@ def load_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("sheets", "0020_question_style.py"),
+        ("sheets", "0020_question_style"),
     ]
 
     operations = [
