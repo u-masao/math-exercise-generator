@@ -157,7 +157,7 @@ class QuestionSubtractionBorrow(QuestionInterface):
             question_b = -random.randint(question_a % 10 + 1, 9)
             question = "{}{:+}=".format(question_a, question_b)
 
-            if len(questions)<2:
+            if len(questions) < 2:
                 questions.append(question)
             elif questions[-1] != question and questions[-2] != question:
                 questions.append(question)
