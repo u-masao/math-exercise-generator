@@ -19,7 +19,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -42,7 +43,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -65,7 +67,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -88,7 +91,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -111,7 +115,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -134,7 +139,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -157,7 +163,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -180,7 +187,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -203,7 +211,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -226,7 +235,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -249,7 +259,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -272,7 +283,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -295,7 +307,8 @@
       "a_min": 11,
       "a_max": 20,
       "b_min": 1,
-      "b_max": 5
+      "b_max": 5,
+      "style": "formura"
     }
   },
   {
@@ -318,7 +331,8 @@
       "a_min": 11,
       "a_max": 99,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -341,7 +355,8 @@
       "a_min": 0,
       "a_max": 10,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "formura"
     }
   },
   {
@@ -349,7 +364,7 @@
     "pk": 16,
     "fields": {
       "created": "2020-10-31T01:18:33.184Z",
-      "modified": "2020-10-31T01:18:33.184Z",
+      "modified": "2020-11-15T02:13:29.524Z",
       "theme_text": "ひきざん（20までのかず、くりさがりあり）",
       "level_text": "A",
       "level_number": 17,
@@ -364,7 +379,8 @@
       "a_min": 10,
       "a_max": 20,
       "b_min": 0,
-      "b_max": 10
+      "b_max": 10,
+      "style": "sentence"
     }
   }
 ]
