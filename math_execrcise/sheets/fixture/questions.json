@@ -364,7 +364,7 @@
     "pk": 16,
     "fields": {
       "created": "2020-10-31T01:18:33.184Z",
-      "modified": "2020-11-15T02:13:29.524Z",
+      "modified": "2020-12-29T22:59:36.458Z",
       "theme_text": "ひきざん（20までのかず、くりさがりあり）",
       "level_text": "A",
       "level_number": 17,
@@ -380,7 +380,31 @@
       "a_max": 20,
       "b_min": 0,
       "b_max": 10,
-      "style": "sentence"
+      "style": "formura"
+    }
+  },
+  {
+    "model": "sheets.question",
+    "pk": 17,
+    "fields": {
+      "created": "2021-01-08T10:46:03.530Z",
+      "modified": "2021-01-08T10:48:14.948Z",
+      "theme_text": "たしざん（10から50のたしざん）",
+      "level_text": "A",
+      "level_number": 18,
+      "algorythm": 1,
+      "pages": 5,
+      "ans_min": 20,
+      "ans_max": 99,
+      "ab_min": 10,
+      "ab_max": 50,
+      "a": 0,
+      "b": 0,
+      "a_min": 0,
+      "a_max": 10,
+      "b_min": 0,
+      "b_max": 10,
+      "style": "formura"
     }
   }
 ]
