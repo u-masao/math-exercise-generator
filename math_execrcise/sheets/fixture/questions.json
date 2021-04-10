@@ -430,5 +430,53 @@
       "b_max": 9,
       "style": "formura"
     }
+  },
+  {
+    "model": "sheets.question",
+    "pk": 19,
+    "fields": {
+      "created": "2021-04-10T07:12:22.291Z",
+      "modified": "2021-04-10T07:12:22.291Z",
+      "theme_text": "かけざんくく（2のだん）",
+      "level_text": "B",
+      "level_number": 2,
+      "algorythm": 7,
+      "pages": 5,
+      "ans_min": 0,
+      "ans_max": 10,
+      "ab_min": 0,
+      "ab_max": 10,
+      "a": 2,
+      "b": 0,
+      "a_min": 0,
+      "a_max": 10,
+      "b_min": 0,
+      "b_max": 10,
+      "style": "formura"
+    }
+  },
+  {
+    "model": "sheets.question",
+    "pk": 20,
+    "fields": {
+      "created": "2021-04-10T07:33:37.521Z",
+      "modified": "2021-04-10T07:33:37.522Z",
+      "theme_text": "かけざんくく（3のだん）",
+      "level_text": "B",
+      "level_number": 3,
+      "algorythm": 7,
+      "pages": 5,
+      "ans_min": 0,
+      "ans_max": 10,
+      "ab_min": 0,
+      "ab_max": 10,
+      "a": 3,
+      "b": 0,
+      "a_min": 0,
+      "a_max": 10,
+      "b_min": 0,
+      "b_max": 10,
+      "style": "formura"
+    }
   }
 ]

@@ -157,6 +157,12 @@ def pdf(
             pages=pages,
             **dict(a_min=a_min, a_max=a_max, b_min=b_min, b_max=b_max,),
         )
+    elif action == "multiplication_sequential":
+        return generate_sheet(
+            QuestionMultiplicationSequential,
+            pages=pages,
+            **dict(a=a),
+        )
     elif action == "subtraction_borrow":
         return generate_sheet(
             QuestionSubtractionBorrow,
@@ -321,6 +327,10 @@ class QuestionAdditionSpecificAb(QuestionInterface):
 class QuestionMultiplicationSpecificAbRange(QuestionInterface):
     def generate(self):
 
+        self.num_of_questions = 30
+        self.rows = 15
+        self.cols = 2
+        self.fontsize_question = 24
         formula_format = "{}×{}="
         theme = "かけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
@@ -335,8 +345,25 @@ class QuestionMultiplicationSpecificAbRange(QuestionInterface):
             )
             questions = self._append_question(questions, question)
 
+        return questions, theme
+
+class QuestionMultiplicationSequential(QuestionInterface):
+    def generate(self):
+
         self.num_of_questions = 30
         self.rows = 15
         self.cols = 2
         self.fontsize_question = 24
+        formula_format = "{}×{}="
+        theme = "かけざん（{}の段を順番に）".format(self.a)
+
+        questions = []
+        question_a = self.a
+        for i in range(self.num_of_questions):
+            question_b = i%9 + 1
+            question = self._format_question(
+                question_a, question_b, question_format=formula_format
+            )
+            questions = self._append_question(questions, question)
+
         return questions, theme

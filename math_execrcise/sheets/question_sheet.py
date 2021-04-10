@@ -4,6 +4,7 @@ from reportlab.pdfbase.cidfonts import UnicodeCIDFont  # noqa: F401
 from reportlab.platypus import Table
 from reportlab.lib.units import cm
 from reportlab.pdfbase.ttfonts import TTFont
+import numpy as np
 
 GEN_SHIN_GOTHIC_MEDIUM_TTF = "./sheets/fonts/GenShinGothic-P-Medium.ttf"
 GEN_SHIN_GOTHIC_FONT_NAME = "GenShinGothic"
@@ -35,15 +36,7 @@ class QuestionSheet:
         self.pdf_canvas.save()
 
     def _build_cells(self, questions, rows=10, cols=2):
-        cells = []
-        index = 0
-        for a in range(1, rows + 1):
-            row = []
-            for b in range(1, cols + 1):
-                cell = questions[index]
-                index = (1 + index) % len(questions)
-                row.append(cell)
-            cells.append(row)
+        cells = np.array(questions).reshape((-1, cols), order="F").tolist()
         return cells
 
     def _draw_string(

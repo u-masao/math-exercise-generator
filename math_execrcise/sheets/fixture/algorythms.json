@@ -64,5 +64,16 @@
       "created": "2021-04-10T01:08:15.033Z",
       "modified": "2021-04-10T01:23:46.459Z"
     }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 7,
+    "fields": {
+      "name": "multiplication_sequential",
+      "description": "かけられる数を固定した掛け算",
+      "usage": "a を指定",
+      "created": "2021-04-10T07:11:07.079Z",
+      "modified": "2021-04-10T07:11:07.079Z"
+    }
   }
 ]
