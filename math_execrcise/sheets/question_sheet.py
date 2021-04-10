@@ -70,7 +70,7 @@ class QuestionSheet:
         self._draw_string(page_subtitle, x=3, y=25, size=20)
         self._draw_string(f"テーマ「{theme}」", x=3, y=2, size=12)
 
-        table = Table(cells, colWidths=8 * cm, rowHeights=2 * cm)
+        table = Table(cells, colWidths=8 * cm, rowHeights=20.0 * cm / rows)
         table.setStyle(
             [
                 (
