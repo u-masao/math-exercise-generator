@@ -159,9 +159,7 @@ def pdf(
         )
     elif action == "multiplication_sequential":
         return generate_sheet(
-            QuestionMultiplicationSequential,
-            pages=pages,
-            **dict(a=a),
+            QuestionMultiplicationSequential, pages=pages, **dict(a=a),
         )
     elif action == "subtraction_borrow":
         return generate_sheet(
@@ -326,16 +324,17 @@ class QuestionAdditionSpecificAb(QuestionInterface):
 
 class QuestionMultiplicationSpecificAbRange(QuestionInterface):
     def generate(self):
+        logger = logging.getLogger(__name__)
 
-        self.num_of_questions = 30
-        self.rows = 15
+        self.num_of_questions = 24
+        self.rows = 12
         self.cols = 2
         self.fontsize_question = 24
         formula_format = "{}×{}="
         theme = "かけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
         questions = []
-        for _ in range(self.num_of_questions):
+        while len(questions) < self.num_of_questions:
             question_a = random.randint(self.a_min, self.a_max)
             question_b = random.randint(self.b_min, self.b_max)
             question_a, question_b = random.sample([question_a, question_b], 2)
@@ -345,13 +344,15 @@ class QuestionMultiplicationSpecificAbRange(QuestionInterface):
             )
             questions = self._append_question(questions, question)
 
+        logger.debug(f"questions: {len(questions)}")
         return questions, theme
+
 
 class QuestionMultiplicationSequential(QuestionInterface):
     def generate(self):
 
-        self.num_of_questions = 30
-        self.rows = 15
+        self.num_of_questions = 24
+        self.rows = 12
         self.cols = 2
         self.fontsize_question = 24
         formula_format = "{}×{}="
@@ -359,8 +360,9 @@ class QuestionMultiplicationSequential(QuestionInterface):
 
         questions = []
         question_a = self.a
-        for i in range(self.num_of_questions):
-            question_b = i%9 + 1
+        while len(questions) < self.num_of_questions:
+            i = len(questions)
+            question_b = i % 9 + 1
             question = self._format_question(
                 question_a, question_b, question_format=formula_format
             )
