@@ -406,5 +406,29 @@
       "b_max": 10,
       "style": "formura"
     }
+  },
+  {
+    "model": "sheets.question",
+    "pk": 18,
+    "fields": {
+      "created": "2021-04-10T01:11:06.486Z",
+      "modified": "2021-04-10T01:24:23.578Z",
+      "theme_text": "かけざん（1から3と9までの数のかけざん）",
+      "level_text": "B",
+      "level_number": 1,
+      "algorythm": 6,
+      "pages": 5,
+      "ans_min": 1,
+      "ans_max": 100,
+      "ab_min": 0,
+      "ab_max": 0,
+      "a": 0,
+      "b": 0,
+      "a_min": 1,
+      "a_max": 3,
+      "b_min": 1,
+      "b_max": 9,
+      "style": "formura"
+    }
   }
 ]

@@ -56,8 +56,8 @@ class QuestionInterface:
     def generate(self):
         pass
 
-    def _format_question(self, a, b):
-        question_string = "{}{:+}=".format(a, b)
+    def _format_question(self, a, b, question_format="{}{:+}="):
+        question_string = question_format.format(a, b)
 
         if self.style == "sentence":
             question_string = "つみきが "
@@ -150,6 +150,12 @@ def pdf(
             QuestionSubtractionSpecificAbRange,
             pages=pages,
             **dict(a_min=a_min, a_max=a_max, b_min=b_min, b_max=b_max),
+        )
+    elif action == "multiplication_specific_ab_range":
+        return generate_sheet(
+            QuestionMultiplicationSpecificAbRange,
+            pages=pages,
+            **dict(a_min=a_min, a_max=a_max, b_min=b_min, b_max=b_max,),
         )
     elif action == "subtraction_borrow":
         return generate_sheet(
@@ -311,3 +317,26 @@ class QuestionAdditionSpecificAb(QuestionInterface):
             questions = self._append_question(questions, question)
         return questions, theme
 
+
+class QuestionMultiplicationSpecificAbRange(QuestionInterface):
+    def generate(self):
+
+        formula_format = "{}×{}="
+        theme = "かけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
+
+        questions = []
+        for _ in range(self.num_of_questions):
+            question_a = random.randint(self.a_min, self.a_max)
+            question_b = random.randint(self.b_min, self.b_max)
+            question_a, question_b = random.sample([question_a, question_b], 2)
+
+            question = self._format_question(
+                question_a, question_b, question_format=formula_format
+            )
+            questions = self._append_question(questions, question)
+
+        self.num_of_questions = 30
+        self.rows = 15
+        self.cols = 2
+        self.fontsize_question = 24
+        return questions, theme

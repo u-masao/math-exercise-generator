@@ -53,5 +53,16 @@
       "created": "2020-10-31T01:17:18.569Z",
       "modified": "2020-10-31T01:17:18.569Z"
     }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 6,
+    "fields": {
+      "name": "multiplication_specific_ab_range",
+      "description": "a と b を指定した掛け算",
+      "usage": "パラメーターは、page、a_min, a_max, b_min, b_max を指定。",
+      "created": "2021-04-10T01:08:15.033Z",
+      "modified": "2021-04-10T01:23:46.459Z"
+    }
   }
 ]
