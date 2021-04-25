@@ -1,13 +1,12 @@
+import logging
 import random
 
+from django.http import Http404, HttpResponse
 from django.utils import timezone
-from django.http import HttpResponse, Http404
 from django.views import generic
 
 from .models import Question  # noqa: F401
 from .question_sheet import QuestionSheet
-
-import logging
 
 
 class QuestionInterface:
@@ -155,11 +154,18 @@ def pdf(
         return generate_sheet(
             QuestionMultiplicationSpecificAbRange,
             pages=pages,
-            **dict(a_min=a_min, a_max=a_max, b_min=b_min, b_max=b_max,),
+            **dict(
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
         )
     elif action == "multiplication_sequential":
         return generate_sheet(
-            QuestionMultiplicationSequential, pages=pages, **dict(a=a),
+            QuestionMultiplicationSequential,
+            pages=pages,
+            **dict(a=a),
         )
     elif action == "subtraction_borrow":
         return generate_sheet(
@@ -266,13 +272,9 @@ class QuestionSpecificAns(QuestionInterface):
         # todo: 入力エラー処理
 
         if not self.subtraction:
-            theme = "たしざん（こたえが{}から{}になるけいさん）".format(
-                self.ans_min, self.ans_max
-            )
+            theme = "たしざん（こたえが{}から{}になるけいさん）".format(self.ans_min, self.ans_max)
         else:
-            theme = "たしざんとひきざん（こたえが{}から{}になるけいさん）".format(
-                self.ans_min, self.ans_max
-            )
+            theme = "たしざんとひきざん（こたえが{}から{}になるけいさん）".format(self.ans_min, self.ans_max)
 
         questions = []
         for _ in range(self.num_of_questions):
@@ -297,13 +299,9 @@ class QuestionAdditionSpecificAb(QuestionInterface):
             theme = "たしざん（{}たす{}）".format(self.a, self.b)
         else:
             if self.a:
-                theme = "たしざん（{}たす{}から{}までのかず）".format(
-                    self.a, self.ab_min, self.ab_max
-                )
+                theme = "たしざん（{}たす{}から{}までのかず）".format(self.a, self.ab_min, self.ab_max)
             else:
-                theme = "たしざん（{}から{}までのかずたす{}）".format(
-                    self.ab_min, self.ab_max, self.b
-                )
+                theme = "たしざん（{}から{}までのかずたす{}）".format(self.ab_min, self.ab_max, self.b)
 
         questions = []
         for _ in range(self.num_of_questions):

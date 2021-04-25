@@ -10,5 +10,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="question", name="params_text",),
+        migrations.RemoveField(
+            model_name="question",
+            name="params_text",
+        ),
     ]

@@ -5,13 +5,9 @@ from django.db import migrations
 
 
 def load_fixture(apps, schema_editor):
-    call_command(
-        "loaddata", "sheets/fixture/questions.json", app_label="sheets"
-    )
+    call_command("loaddata", "sheets/fixture/questions.json", app_label="sheets")
 
-    call_command(
-        "loaddata", "sheets/fixture/algorythms.json", app_label="sheets"
-    )
+    call_command("loaddata", "sheets/fixture/algorythms.json", app_label="sheets")
 
 
 class Migration(migrations.Migration):

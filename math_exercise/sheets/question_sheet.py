@@ -1,10 +1,10 @@
-from reportlab.pdfgen import canvas
+import numpy as np
+from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.cidfonts import UnicodeCIDFont  # noqa: F401
-from reportlab.platypus import Table
-from reportlab.lib.units import cm
 from reportlab.pdfbase.ttfonts import TTFont
-import numpy as np
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Table
 
 GEN_SHIN_GOTHIC_MEDIUM_TTF = "./sheets/fonts/GenShinGothic-P-Medium.ttf"
 GEN_SHIN_GOTHIC_FONT_NAME = "GenShinGothic"
@@ -40,7 +40,11 @@ class QuestionSheet:
         return cells
 
     def _draw_string(
-        self, text, x, y, size,
+        self,
+        text,
+        x,
+        y,
+        size,
     ):
         self.set_fontsize(size)
         self.pdf_canvas.drawString(x * cm, y * cm, text)

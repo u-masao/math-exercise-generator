@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Algorythm
+from .models import Algorythm, Question
 
 
 class AlgorythmAdmin(admin.ModelAdmin):
