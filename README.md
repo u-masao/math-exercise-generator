@@ -21,7 +21,7 @@ poetry install
 ### DB 設定
 
 ```
-cd math_execrcise
+cd math_exercise
 make migrate
 ```
 
