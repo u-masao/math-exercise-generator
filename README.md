@@ -43,3 +43,21 @@ make runserver
 
 http://127.0.0.1:8000/
 
+
+
+## heroku deploy
+
+
+```
+sudo snap install --classic heroku
+heroku login
+heroku create # app name を確認
+git remote remove heroku
+git remote add heroku https://git.heroku.com/< app name >.git
+git push heroku <branch name>:main
+heroku run python math_exercise/manage.py migrate
+heroku run python math_exercise/manage.py createsuperuser
+heroku ps:scale web=1
+heroku open
+heroku logs --tail
+```
