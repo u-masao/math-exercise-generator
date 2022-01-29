@@ -39,10 +39,9 @@ makemigrations-sheets:
 	poetry run python manage.py makemigrations sheets
 
 lint:
+	poetry run isort .
 	poetry run black -l 88 .
 	poetry run flake8 . --max-line-length 88
-	isort .
-	# poetry run mypy .
 
 sql:
 	sqlite3 db.sqlite3

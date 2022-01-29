@@ -1,5 +1,5 @@
 import random
-import click
+
 from src.util import QuestionSheet
 
 
@@ -60,10 +60,7 @@ def question_add_a(a=1, max_number=10):
     return questions, theme
 
 
-@click.command()
-@click.argument("output_dir", type=click.Path(exists=True), default="reports")
-@click.option("--pages", default=30, help="PDFのページ数")
-def main(output_dir, pages=30):
+def main(output_dir="reports", pages=30):
 
     generators = []
 
@@ -85,7 +82,9 @@ def main(output_dir, pages=30):
 
     # 決まった数を中心にしたたしざん
     for a in range(1, 11):
-        generators.append({"func": question_add_a, "kwargs": dict(a=a)},)
+        generators.append(
+            {"func": question_add_a, "kwargs": dict(a=a)},
+        )
 
     # 加算減算のミックス：だいたい決まった答えになる計算
     for max_number in range(5, 21, 5):  # こたえのかず
@@ -105,7 +104,8 @@ def main(output_dir, pages=30):
             if sheets is None:
                 sheets = QuestionSheet("{}/{}.pdf".format(output_dir, theme))
             sheets.draw(
-                questions=questions, theme=theme,
+                questions=questions,
+                theme=theme,
             )
         sheets.close()
 
