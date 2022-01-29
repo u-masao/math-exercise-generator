@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+handler500 = views.my_customized_server_error
+
 app_name = "sheets"
 _url_params = ()
 urlpatterns = [
