@@ -1,8 +1,8 @@
-from reportlab.pdfgen import canvas
+from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.cidfonts import UnicodeCIDFont
+from reportlab.pdfgen import canvas
 from reportlab.platypus import Table
-from reportlab.lib.units import cm
 
 
 class QuestionSheet:
