@@ -18,6 +18,18 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 poetry install
 ```
 
+### secret_key 設定
+
+```
+cd math_exercise
+cp math_exercise/local_settings.py.example math_exercise/localsettings.py
+poetry run python # secret_key 生成
+> from django.core.management.utils import get_random_secret_key
+> get_random_secret_key()
+vi math_exercise/local_settings.py # secret_key 設定
+
+```
+
 ### DB 設定
 
 ```
