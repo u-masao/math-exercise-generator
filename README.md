@@ -64,6 +64,7 @@ http://127.0.0.1:8000/
 sudo snap install --classic heroku
 heroku login
 heroku create # app name を確認
+heroku config:set SECRET_KEY="your_secret_key"
 git remote remove heroku
 git remote add heroku https://git.heroku.com/< app name >.git
 git push heroku <branch name>:main
