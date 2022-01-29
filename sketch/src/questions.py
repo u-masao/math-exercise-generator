@@ -1,5 +1,5 @@
 import random
-import click
+
 from src.util import QuestionSheet
 
 
@@ -60,10 +60,7 @@ def question_add_a(a=1, max_number=10):
     return questions, theme
 
 
-@click.command()
-@click.argument("output_dir", type=click.Path(exists=True), default="reports")
-@click.option("--pages", default=30, help="PDFのページ数")
-def main(output_dir, pages=30):
+def main(output_dir="reports", pages=30):
 
     generators = []
 
