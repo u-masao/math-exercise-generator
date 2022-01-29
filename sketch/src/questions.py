@@ -85,7 +85,9 @@ def main(output_dir, pages=30):
 
     # 決まった数を中心にしたたしざん
     for a in range(1, 11):
-        generators.append({"func": question_add_a, "kwargs": dict(a=a)},)
+        generators.append(
+            {"func": question_add_a, "kwargs": dict(a=a)},
+        )
 
     # 加算減算のミックス：だいたい決まった答えになる計算
     for max_number in range(5, 21, 5):  # こたえのかず
@@ -105,7 +107,8 @@ def main(output_dir, pages=30):
             if sheets is None:
                 sheets = QuestionSheet("{}/{}.pdf".format(output_dir, theme))
             sheets.draw(
-                questions=questions, theme=theme,
+                questions=questions,
+                theme=theme,
             )
         sheets.close()
 
