@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath math_exercise math_exercise.wsgi --log-file -
+web: gunicorn --chdir math_exercise math_exercise.wsgi --log-file -
