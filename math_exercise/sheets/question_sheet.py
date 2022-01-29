@@ -6,7 +6,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Table
 
-GEN_SHIN_GOTHIC_MEDIUM_TTF = "./math_exercise/sheets/fonts/GenShinGothic-P-Medium.ttf"
+GEN_SHIN_GOTHIC_MEDIUM_TTF = "./sheets/fonts/GenShinGothic-P-Medium.ttf"
 GEN_SHIN_GOTHIC_FONT_NAME = "GenShinGothic"
 
 
@@ -42,8 +42,7 @@ class QuestionSheet:
     def _draw_string(
         self,
         text,
-        x,
-        y,
+        x, y,
         size,
     ):
         self.set_fontsize(size)
