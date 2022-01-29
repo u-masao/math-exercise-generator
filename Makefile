@@ -5,4 +5,5 @@ start-project:
 version:
 	poetry run python -m django --version
 
-
+requirements:
+	poetry export -f requirements.txt --output requirements.txt

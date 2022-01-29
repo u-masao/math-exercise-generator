@@ -5,7 +5,7 @@ description = ""
 authors = ["u-masao <4973920+u-masao@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.9"
 django = "^3.1"
 reportlab = "^3.5.47"
 numpy = "^1.20.2"
