@@ -247,6 +247,8 @@ class QuestionSubtractionSpecificAbRange(QuestionInterface):
 
 class QuestionSubtractionSpecificAb(QuestionInterface):
     def generate(self):
+        logging.basicConfig(level=logging.WARNING)
+        logger = logging.getLogger(__name__)
         if not self.a and not self.b:
             theme = "ひきざん（{}までのかず）".format(self.ab_max)
         elif self.a and self.b:
@@ -264,14 +266,21 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
             if self.b_min and self.b_max:
                 question_b = random.randint(self.a_min, self.a_max)
 
+            logger.debug(f"self.a: {self.a}")
+            logger.debug(f"self.b: {self.b}")
+
             if self.a:
                 question_a = self.a
             else:
                 question_a = random.randint(self.ab_min, self.ab_max)
 
+            logger.debug(f"question_a: {question_a}")
+
             if self.b:
                 question_b = -self.b
             else:
+                if question_a == 0:
+                    continue
                 question_b = -random.randint(1, question_a)
             question = self._format_question(question_a, question_b)
             questions = self._append_question(questions, question)

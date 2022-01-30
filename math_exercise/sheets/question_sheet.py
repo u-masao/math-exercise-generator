@@ -42,7 +42,8 @@ class QuestionSheet:
     def _draw_string(
         self,
         text,
-        x, y,
+        x,
+        y,
         size,
     ):
         self.set_fontsize(size)
