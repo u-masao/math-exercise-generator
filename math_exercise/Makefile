@@ -52,3 +52,6 @@ dumpdata-to-fixture-sheets:
 
 makemigrations-sheets-empty:
 	poetry run python manage.py makemigrations sheets --empty
+
+heroku-migrate:
+	heroku run sh -c 'cd math_exercise ; python manage.py migrate'
