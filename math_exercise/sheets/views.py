@@ -93,7 +93,9 @@ class IndexView(generic.ListView):
     template_name = "sheets/index.html"
 
     def get_queryset(self):
-        return Question.objects.order_by(*["level_text", "level_number"])
+        return Question.objects.order_by(
+            *["-level_text", "-level_number", "-theme_text"]
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -177,6 +179,17 @@ def pdf(
             QuestionMultiplicationBlankB,
             pages=pages,
             page_subtitle="「=」のひだりがわに、ただしいすうじをかいてね",
+            **dict(
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
+        )
+    elif action == "division_specific_ab_range":
+        return generate_sheet(
+            QuestionDivisionSpecificAbRange,
+            pages=pages,
             **dict(
                 a_min=a_min,
                 a_max=a_max,
@@ -361,7 +374,7 @@ class QuestionMultiplicationSpecificAbRange(QuestionInterface):
         self.rows = 12
         self.cols = 2
         self.fontsize_question = 24
-        formula_format = "{}×{}="
+        formula_format = "{}×{}＝"
         theme = "かけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
         questions = []
@@ -387,7 +400,7 @@ class QuestionMultiplicationBlankB(QuestionInterface):
         self.rows = 12
         self.cols = 2
         self.fontsize_question = 24
-        formula_format = "{}×    ={}"
+        formula_format = "{}×    ＝ {}"
         theme = "あなうめかけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
         questions = []
@@ -405,6 +418,29 @@ class QuestionMultiplicationBlankB(QuestionInterface):
         return questions, theme
 
 
+class QuestionDivisionSpecificAbRange(QuestionInterface):
+    def generate(self):
+        self.num_of_questions = 24
+        self.rows = 12
+        self.cols = 2
+        self.fontsize_question = 24
+        formula_format = "{}÷{}＝"
+        theme = "わりざん（{}と{}までのかず）".format(self.a_max, self.b_max)
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+            question_a = random.randint(self.a_min, self.a_max)
+            question_b = random.randint(self.b_min, self.b_max)
+            question_a, question_b = random.sample([question_a, question_b], 2)
+
+            question = self._format_question(
+                question_a * question_b, question_a, question_format=formula_format
+            )
+            questions = self._append_question(questions, question)
+
+        return questions, theme
+
+
 class QuestionMultiplicationSequential(QuestionInterface):
     def generate(self):
 
@@ -412,7 +448,7 @@ class QuestionMultiplicationSequential(QuestionInterface):
         self.rows = 12
         self.cols = 2
         self.fontsize_question = 24
-        formula_format = "{}×{}="
+        formula_format = "{}×{}＝"
         theme = "かけざん（{}の段を順番に）".format(self.a)
 
         questions = []
