@@ -766,5 +766,29 @@
       "b_max": 50,
       "style": "formura"
     }
+  },
+  {
+    "model": "sheets.question",
+    "pk": 33,
+    "fields": {
+      "created": "2022-01-30T03:28:58.657Z",
+      "modified": "2022-01-30T03:28:58.657Z",
+      "theme_text": "あなうめかけざん（9までの数）",
+      "level_text": "B",
+      "level_number": 15,
+      "algorythm": 8,
+      "pages": 5,
+      "ans_min": 0,
+      "ans_max": 10,
+      "ab_min": 2,
+      "ab_max": 9,
+      "a": 0,
+      "b": 0,
+      "a_min": 2,
+      "a_max": 9,
+      "b_min": 2,
+      "b_max": 9,
+      "style": "formura"
+    }
   }
 ]

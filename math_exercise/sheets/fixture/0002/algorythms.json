@@ -75,5 +75,16 @@
       "created": "2021-04-10T07:11:07.079Z",
       "modified": "2021-04-10T07:11:07.079Z"
     }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 8,
+    "fields": {
+      "name": "multiplication_blank_b",
+      "description": "あなあうめ掛け算",
+      "usage": "a_min, a_max, b_min, b_max を指定",
+      "created": "2022-01-30T03:27:30.992Z",
+      "modified": "2022-01-30T03:27:30.992Z"
+    }
   }
 ]
