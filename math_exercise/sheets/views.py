@@ -172,6 +172,18 @@ def pdf(
                 b_max=b_max,
             ),
         )
+    elif action == "multiplication_blank_b":
+        return generate_sheet(
+            QuestionMultiplicationBlankB,
+            pages=pages,
+            page_subtitle="「=」のひだりがわに、ただしいすうじをかいてね",
+            **dict(
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
+        )
     elif action == "multiplication_sequential":
         return generate_sheet(
             QuestionMultiplicationSequential,
@@ -188,7 +200,7 @@ def pdf(
         raise Http404("No such action")
 
 
-def generate_sheet(func, pages=10, **kwargs):
+def generate_sheet(func, pages=10, page_subtitle="「=」のみぎがわに、ただしいすうじをかいてね", **kwargs):
     logger = logging.getLogger(__name__)
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "inline; filename=sheet.pdf"
@@ -203,6 +215,7 @@ def generate_sheet(func, pages=10, **kwargs):
             rows=generator.rows,
             cols=generator.cols,
             fontsize_question=generator.fontsize_question,
+            page_subtitle=page_subtitle,
         )
         logger.debug(f"draw sheet: {questions} {theme}")
     sheets.close()
@@ -359,6 +372,32 @@ class QuestionMultiplicationSpecificAbRange(QuestionInterface):
 
             question = self._format_question(
                 question_a, question_b, question_format=formula_format
+            )
+            questions = self._append_question(questions, question)
+
+        logger.debug(f"questions: {len(questions)}")
+        return questions, theme
+
+
+class QuestionMultiplicationBlankB(QuestionInterface):
+    def generate(self):
+        logger = logging.getLogger(__name__)
+
+        self.num_of_questions = 24
+        self.rows = 12
+        self.cols = 2
+        self.fontsize_question = 24
+        formula_format = "{}×    ={}"
+        theme = "あなうめかけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+            question_a = random.randint(self.a_min, self.a_max)
+            question_b = random.randint(self.b_min, self.b_max)
+            question_a, question_b = random.sample([question_a, question_b], 2)
+
+            question = self._format_question(
+                question_a, question_a * question_b, question_format=formula_format
             )
             questions = self._append_question(questions, question)
 
