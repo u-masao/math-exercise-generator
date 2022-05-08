@@ -55,3 +55,21 @@ makemigrations-sheets-empty:
 
 heroku-migrate:
 	heroku run sh -c 'cd math_exercise ; python manage.py migrate'
+
+heroku_login:
+	heroku login
+
+heroku_apps:
+	heroku apps
+
+heroku_git_remote:
+	echo heroku git:remote -a app_name
+
+heroku_start:
+	heroku ps:scale web=1
+
+heroku_stop:
+	heroku ps:scale web=0
+
+heroku_open:
+	heroku open
