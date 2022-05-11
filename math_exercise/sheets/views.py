@@ -35,6 +35,7 @@ class QuestionInterface:
         a_max=None,
         b_min=None,
         b_max=None,
+        step_width=1,
         style="formula",  # formura or sentence
         rows=10,
         cols=2,
@@ -53,6 +54,7 @@ class QuestionInterface:
         self.a_max = a_max
         self.b_min = b_min
         self.b_max = b_max
+        self.step_width = step_width
         self.style = style
         self.rows = rows
         self.cols = cols
@@ -208,6 +210,13 @@ def pdf(
             QuestionSubtractionBorrow,
             pages=pages,
             **dict(a_min=a_min, a_max=a_max, style=style),
+        )
+    elif action == "datetime_interval":
+        return generate_sheet(
+            QuestionDatetimeInterval,
+            pages=pages,
+            page_subtitle="「答え」に、正しい時間を書いてね",
+            **dict(a_min=a_min, a_max=a_max, step_width=10),
         )
     else:
         raise Http404("No such action")
@@ -459,6 +468,43 @@ class QuestionMultiplicationSequential(QuestionInterface):
             question = self._format_question(
                 question_a, question_b, question_format=formula_format
             )
+            questions = self._append_question(questions, question)
+
+        return questions, theme
+
+
+class QuestionDatetimeInterval(QuestionInterface):
+    def generate(self):
+
+        self.num_of_questions = 10
+        self.cols = 1
+        self.rows = 10
+        self.fontsize_question = 18
+        theme = f"時刻と時刻から時間間隔を求める（{self.step_width} 分毎）"
+
+        a_min = self.a_min if self.a_min is not None else 0
+        a_max = self.a_max if self.a_max is not None else 24
+        if a_min > a_max:
+            raise ValueError("次の条件でパラメーターを設定してください: a_min <= a_max")
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+
+            from_hour = random.randrange(a_min, a_max, 1)
+            from_min = random.randrange(0, 60, self.step_width)
+            to_hour = random.randrange(from_hour, a_max, 1)
+            to_min = random.randrange(0, 60, self.step_width)
+            from_sign = "午前" if (from_hour // 12) % 2 == 0 else "午後"
+            to_sign = "午前" if (to_hour // 12) % 2 == 1 else "午後"
+
+            if from_hour * 60 + from_min >= to_hour * 60 + to_min:
+                continue
+
+            question = (
+                f"{from_sign} {from_hour%12} 時 {from_min} 分から "
+                f"{to_sign} {to_hour%12} 時 {to_min} 分まで"
+            )
+            question += "\n" + " " * 80 + "答え______________"
             questions = self._append_question(questions, question)
 
         return questions, theme
