@@ -475,6 +475,8 @@ class QuestionMultiplicationSequential(QuestionInterface):
 
 class QuestionDatetimeInterval(QuestionInterface):
     def generate(self):
+        def am_or_pm(hour):
+            return "午前" if (hour // 12) % 2 == 0 else "午後"
 
         self.num_of_questions = 10
         self.cols = 1
@@ -494,8 +496,8 @@ class QuestionDatetimeInterval(QuestionInterface):
             from_min = random.randrange(0, 60, self.step_width)
             to_hour = random.randrange(from_hour, a_max, 1)
             to_min = random.randrange(0, 60, self.step_width)
-            from_sign = "午前" if (from_hour // 12) % 2 == 0 else "午後"
-            to_sign = "午前" if (to_hour // 12) % 2 == 1 else "午後"
+            from_sign = am_or_pm(from_hour)
+            to_sign = am_or_pm(to_hour)
 
             if from_hour * 60 + from_min >= to_hour * 60 + to_min:
                 continue
