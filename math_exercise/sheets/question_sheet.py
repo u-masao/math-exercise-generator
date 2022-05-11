@@ -65,7 +65,8 @@ class QuestionSheet:
         self.pdf_canvas.setTitle(page_title)
         self._draw_string(page_title, x=2, y=26, size=30)
         self._draw_string(page_subtitle, x=3, y=25, size=20)
-        self._draw_string(f"テーマ「{theme}」", x=3, y=2, size=12)
+        self._draw_string(f"テーマ「{theme}」", x=2, y=3, size=12)
+        self._draw_string("かかったじかん_______ふん______びょう", x=8, y=2, size=18)
 
         table = Table(cells, colWidths=8 * cm, rowHeights=20.0 * cm / rows)
         table.setStyle(
