@@ -503,8 +503,8 @@ class QuestionDatetimeInterval(QuestionInterface):
                 continue
 
             question = (
-                f"{from_sign} {from_hour%12} 時 {from_min} 分から "
-                f"{to_sign} {to_hour%12} 時 {to_min} 分まで"
+                f"{from_sign} {from_hour%12} 時 {from_min:02} 分から "
+                f"{to_sign} {to_hour%12} 時 {to_min:02} 分まで"
             )
             question += "\n" + " " * 80 + "答え______________"
             questions = self._append_question(questions, question)
