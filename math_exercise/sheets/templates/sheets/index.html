@@ -8,7 +8,7 @@
 {% if question_list %}
     <ul>
     {% for question in question_list %}
-    <li><a href="{% url 'sheets:index' %}pdf/{{question.algorythm}}/{{question.pages}}/{{question.ab_min}}/{{question.ab_max}}/{{question.ans_min}}/{{question.ans_max}}/{{question.a}}/{{question.b}}/{{question.a_min}}/{{question.a_max}}/{{question.b_min}}/{{question.b_max}}/{{question.style}}" target="_blank">
+    <li><a href="{% url 'sheets:index' %}pdf/{{question.algorythm}}/{{question.pages}}/{{question.ab_min}}/{{question.ab_max}}/{{question.ans_min}}/{{question.ans_max}}/{{question.a}}/{{question.b}}/{{question.a_min}}/{{question.a_max}}/{{question.b_min}}/{{question.b_max}}/{{question.style}}/{{question.arg1}}" target="_blank">
      {{question.level_text}}-{{question.level_number}}: {{ question.theme_text }}
     </a></li>
     {% endfor %}

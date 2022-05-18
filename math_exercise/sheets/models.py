@@ -34,6 +34,7 @@ class Question(models.Model):
         ("formura", "式"),
         ("sentence", "文章問題"),
     )
+    arg1 = models.IntegerField(default=1)
     style = models.CharField(
         verbose_name="問題の形式",
         max_length=10,

@@ -37,6 +37,7 @@ class QuestionInterface:
         b_max=None,
         step_width=1,
         style="formula",  # formura or sentence
+        arg1=1,
         rows=10,
         cols=2,
         fontsize_question=28,
@@ -56,6 +57,7 @@ class QuestionInterface:
         self.b_max = b_max
         self.step_width = step_width
         self.style = style
+        self.arg1 = arg1
         self.rows = rows
         self.cols = cols
         self.fontsize_question = fontsize_question
@@ -120,6 +122,7 @@ def pdf(
     b_min,
     b_max,
     style,
+    arg1,
 ):
 
     if action == "addition_specific_ab":
@@ -212,11 +215,12 @@ def pdf(
             **dict(a_min=a_min, a_max=a_max, style=style),
         )
     elif action == "datetime_interval":
+        arg1 = arg1 if arg1 is not None else 1
         return generate_sheet(
             QuestionDatetimeInterval,
             pages=pages,
             page_subtitle="「答え」に、正しい時間を書いてね",
-            **dict(a_min=a_min, a_max=a_max, step_width=10),
+            **dict(a_min=a_min, a_max=a_max, step_width=arg1),
         )
     else:
         raise Http404("No such action")
@@ -488,6 +492,8 @@ class QuestionDatetimeInterval(QuestionInterface):
         a_max = self.a_max if self.a_max is not None else 24
         if a_min > a_max:
             raise ValueError("次の条件でパラメーターを設定してください: a_min <= a_max")
+        if self.step_width <= 0:
+            raise ValueError("次の条件でパラメーターを設定してください: step_width > 0")
 
         questions = []
         while len(questions) < self.num_of_questions:
