@@ -9,6 +9,7 @@ from .models import Question  # noqa: F401
 from .question_sheet import QuestionSheet
 from .questions import (
     QuestionAdditionSpecificAb,
+    QuestionDatetimeForward,
     QuestionDatetimeInterval,
     QuestionDivisionSpecificAbRange,
     QuestionMultiplicationBlankB,
@@ -183,6 +184,20 @@ def pdf(
             pages=pages,
             page_subtitle="「答え」に、正しい時間を書いてね",
             **dict(a_min=a_min, a_max=a_max, step_width=arg1),
+        )
+    elif action == "datetime_forward":
+        arg1 = arg1 if arg1 is not None else 1
+        return generate_sheet(
+            QuestionDatetimeForward,
+            pages=pages,
+            page_subtitle="「答え」に、正しい時こくを書いてね",
+            **dict(
+                a_min=a_min,
+                a_max=a_max,
+                ans_min=ans_min,
+                ans_max=ans_max,
+                step_width=arg1,
+            ),
         )
     else:
         raise Http404("No such action")
