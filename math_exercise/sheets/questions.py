@@ -347,14 +347,14 @@ class QuestionDatetimeInterval(QuestionInterface):
 
 class QuestionDatetimeForward(QuestionInterface):
     def generate(self):
-        '''
+        """
         params
         ======
         a_min, a_max,
         ans_min, ans_max,
         step_width
 
-        '''
+        """
 
         def am_or_pm(hour):
             return "午前" if (hour // 12) % 2 == 0 else "午後"
@@ -378,19 +378,16 @@ class QuestionDatetimeForward(QuestionInterface):
 
             from_hour = random.randrange(a_min, a_max, 1)
             from_min = random.randrange(0, 60, self.step_width)
-            to_hour = random.randrange(ans_min, ans_max, 1)
+            to_hour = random.randrange(self.ans_min, self.ans_max, 1)
             to_min = random.randrange(0, 60, self.step_width)
             from_sign = am_or_pm(from_hour)
             to_sign = am_or_pm(to_hour)
-
-            if from_hour * 60 + from_min >= to_hour * 60 + to_min:
-                continue
 
             question = (
                 f"{from_sign} {from_hour%12} 時 {from_min:02} 分から "
                 f"{to_hour%12} 時間 {to_min:02} 分後の時刻は"
             )
-            question += "\n" + " " * 80 + "答え______________"
+            question += "\n" + " " * 65 + "答え" + "_" * 18
             questions = self._append_question(questions, question)
 
         return questions, theme
