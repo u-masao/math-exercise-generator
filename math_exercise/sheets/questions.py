@@ -258,7 +258,7 @@ class QuestionMultiplicationBlankB(QuestionInterface):
         return questions, theme
 
 
-class QuestionDivisionSpecificAbRange(QuestionInterface):
+class QuestionDivisionSpecificAbRangeDivisible(QuestionInterface):
     def generate(self):
         self.num_of_questions = 24
         self.rows = 12
@@ -381,7 +381,6 @@ class QuestionDatetimeForward(QuestionInterface):
             to_hour = random.randrange(self.ans_min, self.ans_max, 1)
             to_min = random.randrange(0, 60, self.step_width)
             from_sign = am_or_pm(from_hour)
-            to_sign = am_or_pm(to_hour)
 
             question = (
                 f"{from_sign} {from_hour%12} 時 {from_min:02} 分から "
