@@ -258,6 +258,28 @@ class QuestionMultiplicationBlankB(QuestionInterface):
         return questions, theme
 
 
+class QuestionDivisionSpecificAbRange(QuestionInterface):
+    def generate(self):
+        self.num_of_questions = 24
+        self.rows = 12
+        self.cols = 2
+        self.fontsize_question = 24
+        formula_format = "{}÷{}＝"
+        theme = "わりざん（{}と{}までのかず）".format(self.a_max, self.b_max)
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+            question_a = random.randint(self.a_min, self.a_max)
+            question_b = random.randint(self.b_min, self.b_max)
+
+            question = self._format_question(
+                question_a, question_b, question_format=formula_format
+            )
+            questions = self._append_question(questions, question)
+
+        return questions, theme
+
+
 class QuestionDivisionSpecificAbRangeDivisible(QuestionInterface):
     def generate(self):
         self.num_of_questions = 24

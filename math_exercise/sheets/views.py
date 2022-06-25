@@ -11,6 +11,7 @@ from .questions import (
     QuestionAdditionSpecificAb,
     QuestionDatetimeForward,
     QuestionDatetimeInterval,
+    QuestionDivisionSpecificAbRange,
     QuestionDivisionSpecificAbRangeDivisible,
     QuestionMultiplicationBlankB,
     QuestionMultiplicationSequential,
@@ -147,6 +148,17 @@ def pdf(
             QuestionMultiplicationBlankB,
             pages=pages,
             page_subtitle="「=」のひだりがわに、ただしいすうじをかいてね",
+            **dict(
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
+        )
+    elif action == "division_specific_ab_range":
+        return generate_sheet(
+            QuestionDivisionSpecificAbRange,
+            pages=pages,
             **dict(
                 a_min=a_min,
                 a_max=a_max,
