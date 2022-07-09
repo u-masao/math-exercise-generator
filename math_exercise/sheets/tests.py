@@ -1,10 +1,7 @@
 from django.test import TestCase
 
-from sheets.views import (
-    QuestionAdditionSpecificAb,
-    QuestionSpecificAns,
-    QuestionSubtractionSpecificAb,
-)
+from sheets.views import (QuestionAdditionSpecificAb, QuestionSpecificAns,
+                          QuestionSubtractionSpecificAb)
 
 
 class QuestionAdditionSpecificAbTests(TestCase):
