@@ -7,20 +7,16 @@ from django.views.decorators.csrf import requires_csrf_token
 
 from .models import Question  # noqa: F401
 from .question_sheet import QuestionSheet
-from .questions import (
-    QuestionAdditionSpecificAb,
-    QuestionDatetimeForward,
-    QuestionDatetimeInterval,
-    QuestionDivisionSpecificAbRange,
-    QuestionDivisionSpecificAbRangeDivisible,
-    QuestionMultiplicationBlankB,
-    QuestionMultiplicationSequential,
-    QuestionMultiplicationSpecificAbRange,
-    QuestionSpecificAns,
-    QuestionSubtractionBorrow,
-    QuestionSubtractionSpecificAb,
-    QuestionSubtractionSpecificAbRange,
-)
+from .questions import (QuestionAdditionIngenious, QuestionAdditionSpecificAb,
+                        QuestionDatetimeForward, QuestionDatetimeInterval,
+                        QuestionDivisionSpecificAbRange,
+                        QuestionDivisionSpecificAbRangeDivisible,
+                        QuestionMultiplicationBlankB,
+                        QuestionMultiplicationSequential,
+                        QuestionMultiplicationSpecificAbRange,
+                        QuestionSpecificAns, QuestionSubtractionBorrow,
+                        QuestionSubtractionSpecificAb,
+                        QuestionSubtractionSpecificAbRange)
 
 
 @requires_csrf_token
@@ -100,6 +96,17 @@ def pdf(
                 ab_max=ab_max,
                 ans_min=ans_min,
                 ans_max=ans_max,
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
+        )
+    elif action == "addition_ingenious":
+        return generate_sheet(
+            QuestionAdditionIngenious,
+            pages=pages,
+            **dict(
                 a_min=a_min,
                 a_max=a_max,
                 b_min=b_min,
