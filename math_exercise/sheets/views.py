@@ -7,16 +7,21 @@ from django.views.decorators.csrf import requires_csrf_token
 
 from .models import Question  # noqa: F401
 from .question_sheet import QuestionSheet
-from .questions import (QuestionAdditionIngenious, QuestionAdditionSpecificAb,
-                        QuestionDatetimeForward, QuestionDatetimeInterval,
-                        QuestionDivisionSpecificAbRange,
-                        QuestionDivisionSpecificAbRangeDivisible,
-                        QuestionMultiplicationBlankB,
-                        QuestionMultiplicationSequential,
-                        QuestionMultiplicationSpecificAbRange,
-                        QuestionSpecificAns, QuestionSubtractionBorrow,
-                        QuestionSubtractionSpecificAb,
-                        QuestionSubtractionSpecificAbRange)
+from .questions import (
+    QuestionAdditionIngenious,
+    QuestionAdditionSpecificAb,
+    QuestionDatetimeForward,
+    QuestionDatetimeInterval,
+    QuestionDivisionSpecificAbRange,
+    QuestionDivisionSpecificAbRangeDivisible,
+    QuestionMultiplicationBlankB,
+    QuestionMultiplicationSequential,
+    QuestionMultiplicationSpecificAbRange,
+    QuestionSpecificAns,
+    QuestionSubtractionBorrow,
+    QuestionSubtractionSpecificAb,
+    QuestionSubtractionSpecificAbRange,
+)
 
 
 @requires_csrf_token
