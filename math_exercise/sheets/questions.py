@@ -209,16 +209,18 @@ class QuestionAdditionSpecificAb(QuestionInterface):
 class QuestionAdditionIngenious(QuestionInterface):
     def generate(self):
         logger = logging.getLogger(__name__)
-        theme = 'たしざん（くふうした計算、{}から{}）'.format(self.a_min*200, self.a_max*200)
+        self.fontsize_question = 22
+        theme = "たしざん（くふうした計算、{}から{}）".format(self.a_min * 200, self.a_max * 200)
         formula_format = "{}+{}＝"
 
         questions = []
-        for _ in range(self.num_of_questions):
+        while len(questions) < self.num_of_questions:
             digit_100 = random.randint(self.a_min, self.a_max)
             digit_1 = random.randint(self.b_min, self.b_max)
 
-            question_a ,question_b = random.sample(
-                [100*digit_100 + digit_1, 100*digit_100 - digit_1], 2)
+            question_a, question_b = random.sample(
+                [100 * digit_100 + digit_1, 100 * digit_100 - digit_1], 2
+            )
 
             question = self._format_question(
                 question_a, question_b, question_format=formula_format
