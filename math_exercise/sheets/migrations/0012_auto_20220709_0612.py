@@ -8,10 +8,11 @@ def load_fixture(apps, schema_editor):
     call_command("loaddata", "sheets/fixture/0012/algorythms.json", app_label="sheets")
     call_command("loaddata", "sheets/fixture/0012/questions.json", app_label="sheets")
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sheets', '0011_auto_20220625_0729'),
+        ("sheets", "0011_auto_20220625_0729"),
     ]
 
     operations = [
