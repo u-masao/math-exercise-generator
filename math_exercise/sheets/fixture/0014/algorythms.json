@@ -1,0 +1,145 @@
+[
+  {
+    "model": "sheets.algorythm",
+    "pk": 1,
+    "fields": {
+      "name": "addition_specific_ab",
+      "description": "aとbを指定した足し算",
+      "usage": "パラメーターは、page、ab_min、ab_max、a、bを指定可能。",
+      "created": "2020-08-22T14:49:40.322Z",
+      "modified": "2020-08-22T14:50:26.240Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 2,
+    "fields": {
+      "name": "specific_ans",
+      "description": "答えを指定した足し算",
+      "usage": "パラメーターは、page、ans_min、ans_maxが有効。",
+      "created": "2020-08-22T14:52:29.887Z",
+      "modified": "2020-08-22T14:52:29.887Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 3,
+    "fields": {
+      "name": "subtraction_specific_ab",
+      "description": "aとbを指定した引き算",
+      "usage": "パラメーターは、page、ab_min、ab_max、a、bを指定可能。",
+      "created": "2020-08-22T14:54:08.231Z",
+      "modified": "2020-08-22T14:54:08.231Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 4,
+    "fields": {
+      "name": "subtraction_specific_ab_range",
+      "description": "a と b を指定した引き算",
+      "usage": "a_min, a_max, b_min, b_max, ans_max を指定",
+      "created": "2020-10-30T23:23:01.839Z",
+      "modified": "2020-10-30T23:30:44.883Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 5,
+    "fields": {
+      "name": "subtraction_borrow",
+      "description": "ひきざん（くりさがりあり）",
+      "usage": "a_min, a_max",
+      "created": "2020-10-31T01:17:18.569Z",
+      "modified": "2020-10-31T01:17:18.569Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 6,
+    "fields": {
+      "name": "multiplication_specific_ab_range",
+      "description": "a と b を指定した掛け算",
+      "usage": "パラメーターは、page、a_min, a_max, b_min, b_max を指定。",
+      "created": "2021-04-10T01:08:15.033Z",
+      "modified": "2021-04-10T01:23:46.459Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 7,
+    "fields": {
+      "name": "multiplication_sequential",
+      "description": "かけられる数を固定した掛け算",
+      "usage": "a を指定",
+      "created": "2021-04-10T07:11:07.079Z",
+      "modified": "2021-04-10T07:11:07.079Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 8,
+    "fields": {
+      "name": "multiplication_blank_b",
+      "description": "あなあうめ掛け算",
+      "usage": "a_min, a_max, b_min, b_max を指定",
+      "created": "2022-01-30T03:27:30.992Z",
+      "modified": "2022-01-30T03:27:30.992Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 9,
+    "fields": {
+      "name": "division_specific_ab_range_divisible",
+      "description": "わりざん(a×b ÷ a =)",
+      "usage": "a_min, a_max, b_min, b_max を指定",
+      "created": "2022-01-30T08:08:42.019Z",
+      "modified": "2022-06-25T06:47:35.268Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 10,
+    "fields": {
+      "name": "datetime_interval",
+      "description": "時刻と時刻の差",
+      "usage": "未定",
+      "created": "2022-05-10T23:34:38.451Z",
+      "modified": "2022-05-10T23:34:38.451Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 11,
+    "fields": {
+      "name": "datetime_forward",
+      "description": "時刻と時間の足し算",
+      "usage": "a_min, a_max, ans_min, ans_max, arg1(step_width)",
+      "created": "2022-05-21T07:31:11.371Z",
+      "modified": "2022-05-21T07:31:11.372Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 12,
+    "fields": {
+      "name": "addition_ingenious",
+      "description": "工夫が必要な計算",
+      "usage": "a_min * 100, a_max * 100, b_min, b_max",
+      "created": "2022-07-09T05:40:57.515Z",
+      "modified": "2022-07-09T05:40:57.515Z"
+    }
+  },
+  {
+    "model": "sheets.algorythm",
+    "pk": 13,
+    "fields": {
+      "name": "division_specific_ab_range",
+      "description": "わりざん(a ÷ b = n * b + m)",
+      "usage": "a_min, a_max, b_min, b_max を指定",
+      "created": "2022-10-29T04:53:27.354Z",
+      "modified": "2022-10-29T04:53:27.354Z"
+    }
+  }
+]
