@@ -303,6 +303,31 @@ class QuestionDivisionSpecificAbRange(QuestionInterface):
         return questions, theme
 
 
+class QuestionDivisionUnDivisible(QuestionInterface):
+    def generate(self):
+        self.num_of_questions = 24
+        self.rows = 12
+        self.cols = 2
+        self.fontsize_question = 24
+        formula_format = "{}÷{}＝"
+        theme = "わりざん（割り切れない{}までのかず）".format(self.ans_max)
+
+        questions = []
+        while len(questions) < self.num_of_questions:
+            mod_number = random.randint(self.b_min, self.b_max)
+            ans_b = random.randint(0, mod_number)
+            if ans_b == 0:
+                continue
+            ans_a = random.randint(self.ans_min, self.ans_max)
+
+            question = self._format_question(
+                ans_a * mod_number + ans_b, mod_number, question_format=formula_format
+            )
+            questions = self._append_question(questions, question)
+
+        return questions, theme
+
+
 class QuestionDivisionSpecificAbRangeDivisible(QuestionInterface):
     def generate(self):
         self.num_of_questions = 24

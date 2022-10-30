@@ -14,6 +14,7 @@ from .questions import (
     QuestionDatetimeInterval,
     QuestionDivisionSpecificAbRange,
     QuestionDivisionSpecificAbRangeDivisible,
+    QuestionDivisionUnDivisible,
     QuestionMultiplicationBlankB,
     QuestionMultiplicationSequential,
     QuestionMultiplicationSpecificAbRange,
@@ -176,6 +177,17 @@ def pdf(
                 a_max=a_max,
                 b_min=b_min,
                 b_max=b_max,
+            ),
+        )
+    elif action == "division_un_divisible":
+        return generate_sheet(
+            QuestionDivisionUnDivisible,
+            pages=pages,
+            **dict(
+                b_min=b_min,
+                b_max=b_max,
+                ans_min=ans_min,
+                ans_max=ans_max,
             ),
         )
     elif action == "division_specific_ab_range_divisible":
