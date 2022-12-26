@@ -8,6 +8,7 @@ from django.views.decorators.csrf import requires_csrf_token
 from .models import Question  # noqa: F401
 from .question_sheet import QuestionSheet
 from .questions import (
+    QuestionAdditionDecimalSpecificAb,
     QuestionAdditionIngenious,
     QuestionAdditionSpecificAb,
     QuestionDatetimeForward,
@@ -94,6 +95,23 @@ def pdf(
     if action == "addition_specific_ab":
         return generate_sheet(
             QuestionAdditionSpecificAb,
+            pages=pages,
+            **dict(
+                a=a,
+                b=b,
+                ab_min=ab_min,
+                ab_max=ab_max,
+                ans_min=ans_min,
+                ans_max=ans_max,
+                a_min=a_min,
+                a_max=a_max,
+                b_min=b_min,
+                b_max=b_max,
+            ),
+        )
+    elif action == "addition_decimal_specific_ab":
+        return generate_sheet(
+            QuestionAdditionDecimalSpecificAb,
             pages=pages,
             **dict(
                 a=a,

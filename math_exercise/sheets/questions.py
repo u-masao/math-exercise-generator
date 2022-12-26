@@ -177,6 +177,46 @@ class QuestionSpecificAns(QuestionInterface):
         return questions, theme
 
 
+class QuestionAdditionDecimalSpecificAb(QuestionInterface):
+    def generate(self):
+        if not self.a and not self.b:
+            theme = "たしざん（{:0.1f}から{:0.1f}までのかず）".format(
+                self.ab_min / 10, self.ab_max / 10
+            )
+        elif self.a and self.b:
+            theme = "たしざん（{:0.1f}たす{:0.1f}）".format(self.a / 10, self.b / 10)
+        else:
+            if self.a:
+                theme = "たしざん（{:0.1f}たす{:0.1f}から{:0.1f}までのかず）".format(
+                    self.a / 10, self.ab_min / 10, self.ab_max / 10
+                )
+            else:
+                theme = "たしざん（{:0.1f}から{:0.1f}までのかずたす{:0.1f}）".format(
+                    self.ab_min / 10, self.ab_max / 10, self.b / 10
+                )
+
+        formula_format = "{:0.1f}+{:0.1f}＝"
+        questions = []
+        for _ in range(self.num_of_questions):
+            if self.a:
+                question_a = self.a
+            else:
+                question_a = random.randint(self.ab_min, self.ab_max)
+
+            if self.b:
+                question_b = self.b
+            else:
+                question_b = random.randint(self.ab_min, self.ab_max)
+
+            question = self._format_question(
+                question_a / 10.0,
+                question_b / 10.0,
+                question_format=formula_format,
+            )
+            questions = self._append_question(questions, question)
+        return questions, theme
+
+
 class QuestionAdditionSpecificAb(QuestionInterface):
     def generate(self):
         if not self.a and not self.b:
