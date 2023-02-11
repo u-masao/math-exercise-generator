@@ -21,6 +21,7 @@ from .questions import (
     QuestionMultiplicationSpecificAbRange,
     QuestionSpecificAns,
     QuestionSubtractionBorrow,
+    QuestionSubtractionDecimalBorrow,
     QuestionSubtractionSpecificAb,
     QuestionSubtractionSpecificAbRange,
 )
@@ -51,7 +52,7 @@ class IndexView(generic.ListView):
         return context
 
 
-def generate_sheet(func, pages=10, page_subtitle="「=」のみぎがわに、ただしいすうじをかいてね", **kwargs):
+def generate_sheet(func, pages=10, page_subtitle="「=」のみぎがわに、ただしいこたえをかいてね", **kwargs):
     logger = logging.getLogger(__name__)
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "inline; filename=sheet.pdf"
@@ -59,7 +60,7 @@ def generate_sheet(func, pages=10, page_subtitle="「=」のみぎがわに、�
     sheets = QuestionSheet(response)
     for _ in range(pages):
         generator = func(**kwargs)
-        questions, theme = generator.generate()
+        questions, theme, answers = generator.generate()
         sheets.draw(
             questions=questions,
             theme=theme,
@@ -67,6 +68,7 @@ def generate_sheet(func, pages=10, page_subtitle="「=」のみぎがわに、�
             cols=generator.cols,
             fontsize_question=generator.fontsize_question,
             page_subtitle=page_subtitle,
+            answers=answers,
         )
         logger.debug(f"draw sheet: {questions} {theme}")
     sheets.close()
@@ -178,7 +180,7 @@ def pdf(
         return generate_sheet(
             QuestionMultiplicationBlankB,
             pages=pages,
-            page_subtitle="「=」のひだりがわに、ただしいすうじをかいてね",
+            page_subtitle="「=」のひだりがわに、ただしいこたえをかいてね",
             **dict(
                 a_min=a_min,
                 a_max=a_max,
@@ -228,6 +230,12 @@ def pdf(
     elif action == "subtraction_borrow":
         return generate_sheet(
             QuestionSubtractionBorrow,
+            pages=pages,
+            **dict(a_min=a_min, a_max=a_max, style=style),
+        )
+    elif action == "subtraction_decimal_borrow":
+        return generate_sheet(
+            QuestionSubtractionDecimalBorrow,
             pages=pages,
             **dict(a_min=a_min, a_max=a_max, style=style),
         )
