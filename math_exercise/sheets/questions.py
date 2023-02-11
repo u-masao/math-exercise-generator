@@ -76,12 +76,44 @@ class QuestionInterface:
         return questions
 
 
+class QuestionSubtractionDecimalBorrow(QuestionInterface):
+    def generate(self):
+        theme = f"ひきざん（くりさがりあり {self.a_max:0.1f} までのかず ）"
+
+        formula_format = "{:0.1f}-{:0.1f}＝"
+        questions = []
+        answer_list = []
+        while len(questions) < self.num_of_questions:
+            question_a = random.randint(max(self.a_min, 0), self.a_max)
+            question_b = random.randint(max(self.a_min, 0), self.a_max)
+
+            if question_a == question_b:
+                continue
+
+            if abs(question_b) > abs(question_a):
+                temp_value = question_a
+                question_a = question_b
+                question_b = temp_value
+
+            question = self._format_question(
+                question_a / 10.0,
+                question_b / 10.0,
+                question_format=formula_format,
+            )
+            questions = self._append_question(questions, question)
+            answer_list.append(f"{question}{(question_a - question_b)/10.0:0.1f}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
+
+
 class QuestionSubtractionBorrow(QuestionInterface):
     def generate(self):
         logger = logging.getLogger(__name__)
         theme = f"ひきざん（くりさがりあり {self.a_max} までのかず ）"
 
         questions = []
+        answer_list = []
+
         while len(questions) < self.num_of_questions:
             if self.a_min and self.a_max:
                 question_a = random.randint(self.a_min, self.a_max)
@@ -91,8 +123,10 @@ class QuestionSubtractionBorrow(QuestionInterface):
             question = self._format_question(question_a, question_b)
 
             questions = self._append_question(questions, question)
+            answer_list.append(f"{question}{question_a + question_b}")
         logger.debug(f"questions: {questions}")
-        return questions, theme
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionSubtractionSpecificAbRange(QuestionInterface):
@@ -100,6 +134,7 @@ class QuestionSubtractionSpecificAbRange(QuestionInterface):
         theme = f"ひきざん（くりさがりなし {self.a_max} までのかず ）"
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             if self.a_min and self.a_max:
                 question_a = random.randint(self.a_min, self.a_max)
@@ -108,7 +143,9 @@ class QuestionSubtractionSpecificAbRange(QuestionInterface):
             question_b = -random.randint(1, question_a % 10)
             question = self._format_question(question_a, question_b)
             questions = self._append_question(questions, question)
-        return questions, theme
+            answer_list.append(f"{question}{question_a + question_b}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionSubtractionSpecificAb(QuestionInterface):
@@ -126,6 +163,7 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
                 theme = "ひきざん（{}までのかずひく{}）".format(self.ab_max, self.b)
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             if self.a_min and self.a_max:
                 question_a = random.randint(self.a_min, self.a_max)
@@ -150,7 +188,9 @@ class QuestionSubtractionSpecificAb(QuestionInterface):
                 question_b = -random.randint(1, question_a)
             question = self._format_question(question_a, question_b)
             questions = self._append_question(questions, question)
-        return questions, theme
+            answer_list.append(f"{question}{question_a + question_b}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionSpecificAns(QuestionInterface):
@@ -163,6 +203,7 @@ class QuestionSpecificAns(QuestionInterface):
             theme = "たしざんとひきざん（こたえが{}から{}になるけいさん）".format(self.ans_min, self.ans_max)
 
         questions = []
+        answer_list = []
         for _ in range(self.num_of_questions):
             question_ans = random.randint(self.ans_min, self.ans_max)
             if not self.subtraction:
@@ -174,7 +215,9 @@ class QuestionSpecificAns(QuestionInterface):
 
             question = self._format_question(question_a, question_b)
             questions = self._append_question(questions, question)
-        return questions, theme
+            answer_list.append(f"{question}{question_a + question_b}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionAdditionDecimalSpecificAb(QuestionInterface):
@@ -197,6 +240,7 @@ class QuestionAdditionDecimalSpecificAb(QuestionInterface):
 
         formula_format = "{:0.1f}+{:0.1f}＝"
         questions = []
+        answer_list = []
         for _ in range(self.num_of_questions):
             if self.a:
                 question_a = self.a
@@ -214,7 +258,9 @@ class QuestionAdditionDecimalSpecificAb(QuestionInterface):
                 question_format=formula_format,
             )
             questions = self._append_question(questions, question)
-        return questions, theme
+            answer_list.append(f"{question}{(question_a + question_b) / 10.0:0.1f}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionAdditionSpecificAb(QuestionInterface):
@@ -230,6 +276,7 @@ class QuestionAdditionSpecificAb(QuestionInterface):
                 theme = "たしざん（{}から{}までのかずたす{}）".format(self.ab_min, self.ab_max, self.b)
 
         questions = []
+        answer_list = []
         for _ in range(self.num_of_questions):
             if self.a:
                 question_a = self.a
@@ -243,7 +290,9 @@ class QuestionAdditionSpecificAb(QuestionInterface):
 
             question = self._format_question(question_a, question_b)
             questions = self._append_question(questions, question)
-        return questions, theme
+            answer_list.append(f"{question}{question_a + question_b}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionAdditionIngenious(QuestionInterface):
@@ -254,6 +303,7 @@ class QuestionAdditionIngenious(QuestionInterface):
         formula_format = "{}+{}＝"
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             digit_100 = random.randint(self.a_min, self.a_max)
             digit_1 = random.randint(self.b_min, self.b_max)
@@ -267,7 +317,9 @@ class QuestionAdditionIngenious(QuestionInterface):
             )
             logger.info(f"question: {question}")
             questions = self._append_question(questions, question)
-        return questions, theme
+            answer_list.append(f"{question}{question_a + question_b}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionMultiplicationSpecificAbRange(QuestionInterface):
@@ -282,6 +334,7 @@ class QuestionMultiplicationSpecificAbRange(QuestionInterface):
         theme = "かけざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             question_a = random.randint(self.a_min, self.a_max)
             question_b = random.randint(self.b_min, self.b_max)
@@ -290,9 +343,11 @@ class QuestionMultiplicationSpecificAbRange(QuestionInterface):
                 question_a, question_b, question_format=formula_format
             )
             questions = self._append_question(questions, question)
+            answer_list.append(f"{question}{question_a * question_b}")
 
         logger.debug(f"questions: {len(questions)}")
-        return questions, theme
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionMultiplicationBlankB(QuestionInterface):
@@ -318,7 +373,8 @@ class QuestionMultiplicationBlankB(QuestionInterface):
             questions = self._append_question(questions, question)
 
         logger.debug(f"questions: {len(questions)}")
-        return questions, theme
+        answers = None
+        return questions, theme, answers
 
 
 class QuestionDivisionSpecificAbRange(QuestionInterface):
@@ -331,6 +387,7 @@ class QuestionDivisionSpecificAbRange(QuestionInterface):
         theme = "わりざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             question_a = random.randint(self.a_min, self.a_max)
             question_b = random.randint(self.b_min, self.b_max)
@@ -340,7 +397,11 @@ class QuestionDivisionSpecificAbRange(QuestionInterface):
             )
             questions = self._append_question(questions, question)
 
-        return questions, theme
+            answer_list.append(
+                f"{question}{question_a // question_b}" f"・・・{question_a%question_b}"
+            )
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionDivisionUnDivisible(QuestionInterface):
@@ -353,6 +414,7 @@ class QuestionDivisionUnDivisible(QuestionInterface):
         theme = "わりざん（割り切れない{}までのかず）".format(self.ans_max)
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             mod_number = random.randint(self.b_min, self.b_max)
             ans_b = random.randint(0, mod_number)
@@ -365,7 +427,9 @@ class QuestionDivisionUnDivisible(QuestionInterface):
             )
             questions = self._append_question(questions, question)
 
-        return questions, theme
+            answer_list.append(f"{question}{ans_a}・・・{ans_b}")
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionDivisionSpecificAbRangeDivisible(QuestionInterface):
@@ -378,6 +442,7 @@ class QuestionDivisionSpecificAbRangeDivisible(QuestionInterface):
         theme = "わりざん（{}と{}までのかず）".format(self.a_max, self.b_max)
 
         questions = []
+        answer_list = []
         while len(questions) < self.num_of_questions:
             question_a = random.randint(self.a_min, self.a_max)
             question_b = random.randint(self.b_min, self.b_max)
@@ -388,7 +453,11 @@ class QuestionDivisionSpecificAbRangeDivisible(QuestionInterface):
             )
             questions = self._append_question(questions, question)
 
-        return questions, theme
+            answer_list.append(
+                f"{question}{question_a // question_b}" f"・・・{question_a%question_b}"
+            )
+        answers = " \n".join(answer_list)
+        return questions, theme, answers
 
 
 class QuestionMultiplicationSequential(QuestionInterface):
@@ -402,6 +471,7 @@ class QuestionMultiplicationSequential(QuestionInterface):
         theme = "かけざん（{}の段を順番に）".format(self.a)
 
         questions = []
+        answer_list = []
         question_a = self.a
         while len(questions) < self.num_of_questions:
             i = len(questions)
@@ -410,8 +480,10 @@ class QuestionMultiplicationSequential(QuestionInterface):
                 question_a, question_b, question_format=formula_format
             )
             questions = self._append_question(questions, question)
+            answer_list.append(f"{question}{question_a * question_b}")
+        answers = " \n".join(answer_list)
 
-        return questions, theme
+        return questions, theme, answers
 
 
 class QuestionDatetimeInterval(QuestionInterface):
@@ -452,7 +524,8 @@ class QuestionDatetimeInterval(QuestionInterface):
             question += "\n" + " " * 80 + "答え______________"
             questions = self._append_question(questions, question)
 
-        return questions, theme
+        answers = None
+        return questions, theme, answers
 
 
 class QuestionDatetimeForward(QuestionInterface):
@@ -499,4 +572,5 @@ class QuestionDatetimeForward(QuestionInterface):
             question += "\n" + " " * 65 + "答え" + "_" * 18
             questions = self._append_question(questions, question)
 
-        return questions, theme
+        answers = None
+        return questions, theme, answers
