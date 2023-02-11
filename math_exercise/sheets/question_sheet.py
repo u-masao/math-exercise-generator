@@ -1,5 +1,9 @@
+import tempfile
+
 import numpy as np
+import qrcode
 from reportlab.lib.units import cm
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.cidfonts import UnicodeCIDFont  # noqa: F401
 from reportlab.pdfbase.ttfonts import TTFont
@@ -56,17 +60,32 @@ class QuestionSheet:
         cols=2,
         theme="なし",
         page_title="さんすうもんだいをやろう！",
-        page_subtitle="「=」のみぎがわに、ただしいすうじをかいてね",
+        page_subtitle="「=」のみぎがわにただしいこたえをかいてね",
         fontsize_question=28,
+        answers=None,
     ):
 
         cells = self._build_cells(questions, rows=rows, cols=cols)
 
         self.pdf_canvas.setTitle(page_title)
         self._draw_string(page_title, x=2, y=26, size=30)
-        self._draw_string(page_subtitle, x=3, y=25, size=20)
-        self._draw_string(f"テーマ「{theme}」", x=2, y=3, size=12)
-        self._draw_string("かかったじかん_______ふん______びょう", x=8, y=2, size=18)
+        self._draw_string(page_subtitle, x=3, y=25, size=18)
+        self._draw_string(f"テーマ「{theme}」", x=8, y=3, size=12)
+        self._draw_string("かかったじかん_______ふん______びょう", x=8, y=1.5, size=14)
+        if answers is not None:
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+            )
+            qr.add_data(answers)
+            qr.make(fit=True)
+            qr_pillow = qr.make_image(fill_color="gray", back_color="white")
+
+            qr_image = self._convert_to_image_reader(qr_pillow)
+
+            self.pdf_canvas.drawImage(
+                qr_image, x=2.5 * cm, y=0.5 * cm, width=3 * cm, height=3 * cm
+            )
 
         table = Table(cells, colWidths=8 * cm, rowHeights=20.0 * cm / rows)
         table.setStyle(
@@ -84,3 +103,12 @@ class QuestionSheet:
         table.drawOn(self.pdf_canvas, 2 * cm, 24 * cm - h)
 
         self.pdf_canvas.showPage()
+
+    def _convert_to_image_reader(self, qr_pillow):
+
+        fo = tempfile.NamedTemporaryFile()
+        qr_pillow.save(fo)
+        fo.seek(0)
+        qr_image = ImageReader(fo.name)
+        fo.close()
+        return qr_image
