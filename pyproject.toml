@@ -16,7 +16,7 @@ click = "8.0.2"
 qrcode = "^7.4.2"
 Pillow = "^9.4.0"
 
-[tool.poetry.dev-dependencies]
+[poetry.group.dev.dependencies]
 isort = "^5.10.1"
 flake8 = "^4.0.1"
 black = "^21.12b0"
