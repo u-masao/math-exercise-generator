@@ -198,9 +198,13 @@ class QuestionSpecificAns(QuestionInterface):
         # todo: 入力エラー処理
 
         if not self.subtraction:
-            theme = "たしざん（こたえが{}から{}になるけいさん）".format(self.ans_min, self.ans_max)
+            theme = "たしざん（こたえが{}から{}になるけいさん）".format(
+                self.ans_min, self.ans_max
+            )
         else:
-            theme = "たしざんとひきざん（こたえが{}から{}になるけいさん）".format(self.ans_min, self.ans_max)
+            theme = "たしざんとひきざん（こたえが{}から{}になるけいさん）".format(
+                self.ans_min, self.ans_max
+            )
 
         questions = []
         answer_list = []
@@ -271,9 +275,13 @@ class QuestionAdditionSpecificAb(QuestionInterface):
             theme = "たしざん（{}たす{}）".format(self.a, self.b)
         else:
             if self.a:
-                theme = "たしざん（{}たす{}から{}までのかず）".format(self.a, self.ab_min, self.ab_max)
+                theme = "たしざん（{}たす{}から{}までのかず）".format(
+                    self.a, self.ab_min, self.ab_max
+                )
             else:
-                theme = "たしざん（{}から{}までのかずたす{}）".format(self.ab_min, self.ab_max, self.b)
+                theme = "たしざん（{}から{}までのかずたす{}）".format(
+                    self.ab_min, self.ab_max, self.b
+                )
 
         questions = []
         answer_list = []
@@ -299,7 +307,9 @@ class QuestionAdditionIngenious(QuestionInterface):
     def generate(self):
         logger = logging.getLogger(__name__)
         self.fontsize_question = 22
-        theme = "たしざん（くふうした計算、{}から{}）".format(self.a_min * 200, self.a_max * 200)
+        theme = "たしざん（くふうした計算、{}から{}）".format(
+            self.a_min * 200, self.a_max * 200
+        )
         formula_format = "{}+{}＝"
 
         questions = []

@@ -52,7 +52,12 @@ class IndexView(generic.ListView):
         return context
 
 
-def generate_sheet(func, pages=10, page_subtitle="「=」のみぎがわに、ただしいこたえをかいてね", **kwargs):
+def generate_sheet(
+    func,
+    pages=10,
+    page_subtitle="「=」のみぎがわに、ただしいこたえをかいてね",
+    **kwargs,
+):
     logger = logging.getLogger(__name__)
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "inline; filename=sheet.pdf"
