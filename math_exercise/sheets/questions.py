@@ -208,7 +208,7 @@ class QuestionSpecificAns(QuestionInterface):
 
         questions = []
         answer_list = []
-        for _ in range(self.num_of_questions):
+        while len(questions) < self.num_of_questions:
             question_ans = random.randint(self.ans_min, self.ans_max)
             if not self.subtraction:
                 question_a = random.randint(0, question_ans)
@@ -245,7 +245,7 @@ class QuestionAdditionDecimalSpecificAb(QuestionInterface):
         formula_format = "{:0.1f}+{:0.1f}＝"
         questions = []
         answer_list = []
-        for _ in range(self.num_of_questions):
+        while len(questions) < self.num_of_questions:
             if self.a:
                 question_a = self.a
             else:
@@ -285,7 +285,7 @@ class QuestionAdditionSpecificAb(QuestionInterface):
 
         questions = []
         answer_list = []
-        for _ in range(self.num_of_questions):
+        while len(questions) < self.num_of_questions:
             if self.a:
                 question_a = self.a
             else:
@@ -516,7 +516,6 @@ class QuestionDatetimeInterval(QuestionInterface):
 
         questions = []
         while len(questions) < self.num_of_questions:
-
             from_hour = random.randrange(a_min, a_max, 1)
             from_min = random.randrange(0, 60, self.step_width)
             to_hour = random.randrange(from_hour, a_max, 1)
