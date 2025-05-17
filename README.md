@@ -33,7 +33,6 @@ vi math_exercise/local_settings.py # secret_key 設定
 ### DB 設定
 
 ```
-cd math_exercise
 make migrate
 ```
 
