@@ -13,8 +13,21 @@ cd math-exercise-generator
 
 ### poetry コマンドインストール、環境構築
 
+poetry を動かすために必要なライブラリなどをインストールします。
+
 ```
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+sudo apt update
+sudo apt-get install pipx
+pipx ensurepath
+source ~/.bashrc
+pipx install poetry
+```
+
+アプリを動作させるために必要なライブラリをインストールします。
+
+```
+sudo apt update
+sudo apt-get install libjpeg-dev libpq-dev libfreetype6-dev
 poetry install
 ```
 
@@ -22,7 +35,7 @@ poetry install
 
 ```
 cd math_exercise
-cp math_exercise/local_settings.py.example math_exercise/localsettings.py
+cp math_exercise/local_settings.py.example math_exercise/local_settings.py
 poetry run python # secret_key 生成
 > from django.core.management.utils import get_random_secret_key
 > get_random_secret_key()
@@ -50,26 +63,6 @@ make runserver
 
 ### 利用
 
-ブラウザで、以下の URL に接続
+ブラウザで以下の URL に接続します。
 
 http://127.0.0.1:8000/
-
-
-
-## heroku deploy
-
-
-```
-sudo snap install --classic heroku
-heroku login
-heroku create # app name を確認
-heroku config:set SECRET_KEY="your_secret_key"
-git remote remove heroku
-git remote add heroku https://git.heroku.com/< app name >.git
-git push heroku <branch name>:main
-heroku run 'cd math_exercise ; python manage.py migrate'
-heroku run 'cd math_exercise ; python manage.py createsuperuser'
-heroku ps:scale web=1
-heroku open
-heroku logs --tail
-```
